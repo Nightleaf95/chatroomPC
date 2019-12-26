@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+		<meta http-equiv="expires" content="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>微信群管理平台</title>
+		<!-- 重置样式 -->
+		<link rel="stylesheet" href="../css/reset.css">
+		<!-- icon -->
+		<link rel="stylesheet" href="../css/fonts.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../js/layui/css/layui.css">
+		<link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/main.css">
+	</head>
+	<body>
+		<div class="animated slideInRight group-manager-model">
+			<div class="add-btn-wrapper">
+				<button class="layui-btn danger-bg" data-toggle="modal" data-target="#addGroupModal">新增群组</button>
+			</div>
+			<div class="card-wrapper">
+				<div class="layui-card">
+					<div class="layui-card-header">
+						<span class="groupname" title="一组一组一组一组一组一组一组">一组一组一组一组一组一组一组</span>
+						<div class="operation-wrapper">
+							<span class="edit" data-toggle="modal" data-target="#editGroupModal">修改</span>
+							<span class="delete">删除</span>
+						</div>
+					</div>
+					<div class="layui-card-body">
+						<p class="role-item blue">服务顾问：<span class="role-value role-sa" data-id="4">张一白</span></p>
+						<p class="role-item">组合服务顾问：<span class="role-value role-zuheSA" data-id="7">牛洋</span></p>
+						<p class="role-item">客服专员：<span class="role-value role-kefu" data-id="8">陆建坤</span></p>
+						<p class="role-item">销售顾问：<span class="role-value role-xiaoshou" data-id="9">罗镇</span></p>
+						<p class="role-item">保险顾问：<span class="role-value role-baoxian" data-id="10">刘珍珠</span></p>
+						<p class="role-item">车间技师：<span class="role-value role-jishi" data-id="11">吕浩</span></p>
+					</div>
+				</div>
+				<div class="layui-card">
+					<div class="layui-card-header">
+						<span class="groupname" title="二组">二组</span>
+						<div class="operation-wrapper">
+							<span class="edit" data-toggle="modal" data-target="#editGroupModal">修改</span>
+							<span class="delete">删除</span>
+						</div>
+					</div>
+					<div class="layui-card-body">
+						<p class="role-item blue">服务顾问：<span class="role-value role-sa" data-id="5">罗俊余</span></p>
+						<p class="role-item">组合服务顾问：<span class="role-value role-zuheSA" data-id="7">牛洋</span></p>
+						<p class="role-item">客服专员：<span class="role-value role-kefu" data-id="8">陆建坤</span></p>
+						<p class="role-item">销售顾问：<span class="role-value role-xiaoshou" data-id="9">罗镇</span></p>
+						<p class="role-item">保险顾问：<span class="role-value role-baoxian" data-id="10">刘珍珠</span></p>
+						<p class="role-item">车间技师：<span class="role-value role-jishi" data-id="11">吕浩</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 新增群组Modal -->
+		<div class="modal fade" id="addGroupModal" tabindex="-1" role="dialog" aria-labelledby="addGroupModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="layui-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="addGroupModalLabel">新增群组</h4>
+						</div>
+						<div class="modal-body">
+							<div class="layui-form-item">
+								<label class="layui-form-label">组名</label>
+								<div class="layui-input-block">
+									<input type="text" name="groupname" required lay-verify="required" placeholder="请输入组名" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">服务顾问</label>
+								<div class="layui-input-block">
+									<select name="SA" lay-verify="required">
+										<option value="1">罗翔</option>
+										<option value="2">刘庆柱</option>
+										<option value="3">蔡旭</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">组合服务顾问</label>
+								<div class="layui-input-block">
+									<select name="combinationSA" lay-verify="required">
+										<option value="4">张一白</option>
+										<option value="5">罗俊余</option>
+										<option value="6">刘畅</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">客服专员</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="kefu" name="kefu" value="0" title="陆建坤" checked>
+									<input type="radio" lay-filter="kefu" name="kefu" value="1" title="圩镇">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">销售顾问</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="kefu" name="xiaoshou" value="0" title="赵青宇" checked>
+									<input type="radio" lay-filter="kefu" name="xiaoshou" value="1" title="刘满">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">保险顾问</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="kefu" name="baoxian" value="0" title="陈思雨" checked>
+									<input type="radio" lay-filter="kefu" name="baoxian" value="1" title="刘建">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">车间技师</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="kefu" name="jishi" value="0" title="罗家祥" checked>
+									<input type="radio" lay-filter="kefu" name="jishi" value="1" title="李逵">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn danger-bg" lay-submit lay-filter="addGroupSure">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- 修改群组Modal -->
+		<div class="modal fade" id="editGroupModal" tabindex="-1" role="dialog" aria-labelledby="editGroupModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="layui-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="editGroupModalLabel">修改群组</h4>
+						</div>
+						<div class="modal-body">
+							<div class="layui-form-item">
+								<label class="layui-form-label">组名</label>
+								<div class="layui-input-block">
+									<input type="text" name="editGroupname" required lay-verify="required" placeholder="请输入组名" value="一组"
+									 autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">服务顾问</label>
+								<div class="layui-input-block">
+									<select id="editSA" name="editSA" lay-verify="required">
+										<option value="4">张一白</option>
+										<option value="5">罗俊余</option>
+										<option value="3">蔡旭</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">组合服务顾问</label>
+								<div class="layui-input-block">
+									<select id="editCombinationSA" name="editCombinationSA" lay-verify="required">
+										<option value="7">牛洋</option>
+										<option value="5">罗俊余</option>
+										<option value="6">刘畅</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">客服专员</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="kefu" name="editKefu" value="8" title="陆建坤">
+									<input type="radio" lay-filter="kefu" name="editKefu" value="12" title="圩镇">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">销售顾问</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="kefu" name="editXiaoshou" value="13" title="赵青宇">
+									<input type="radio" lay-filter="kefu" name="editXiaoshou" value="14" title="刘满">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">保险顾问</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="kefu" name="editBaoxian" value="15" title="陈思雨">
+									<input type="radio" lay-filter="kefu" name="editBaoxian" value="16" title="刘建">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">车间技师</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="kefu" name="editJishi" value="17" title="罗家祥">
+									<input type="radio" lay-filter="kefu" name="editJishi" value="18" title="李逵">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn danger-bg" lay-submit lay-filter="editGroupSure">修改</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+		<script>
+			layui.use('form', function() {
+				var form = layui.form;
+
+				//新增群组 提交
+				form.on('submit(addGroupSure)', function(data) {
+					console.log(data.field);
+					return false;
+				});
+
+				//修改群组 提交
+				$(".edit").click(function() {
+					let groupname = $(this).parent().siblings(".groupname").text();
+					let SA = $(this).parent().parent().siblings(".layui-card-body").find(".role-sa").attr('data-id');
+					let zuheSA = $(this).parent().parent().siblings(".layui-card-body").find(".role-zuheSA").attr('data-id');
+					let kefu = $(this).parent().parent().siblings(".layui-card-body").find(".role-kefu").attr('data-id');
+					let xiaoshou = $(this).parent().parent().siblings(".layui-card-body").find(".role-xiaoshou").attr('data-id');
+					let baoxian = $(this).parent().parent().siblings(".layui-card-body").find(".role-baoxian").attr('data-id');
+					let jishi = $(this).parent().parent().siblings(".layui-card-body").find(".role-jishi").attr('data-id');
+					console.log(groupname, SA, zuheSA, kefu, xiaoshou, baoxian, jishi);
+					$("input[name=editGroupname]").val(groupname);
+					$("#editSA").find("option[value=" + SA + "]").prop("selected", true);
+					$("#editCombinationSA").find("option[value=" + zuheSA + "]").prop("selected", true);
+					$("input[name=editKefu]").each(function() {
+						if ($(this).val() == kefu) {
+							$(this).attr("checked", true);
+						}
+					});
+					$("input[name=editXiaoshou]").each(function() {
+						if ($(this).val() == xiaoshou) {
+							$(this).attr("checked", true);
+						}
+					});
+					$("input[name=editBaoxian]").each(function() {
+						if ($(this).val() == baoxian) {
+							$(this).attr("checked", true);
+						}
+					});
+					$("input[name=editJishi]").each(function() {
+						if ($(this).val() == jishi) {
+							$(this).attr("checked", true);
+						}
+					});
+					form.render('select');
+					form.render('radio');
+				});
+				form.on('submit(editGroupSure)', function(data) {
+					console.log(data.field);
+					return false;
+				});
+			});
+
+			// 删除群组
+			$(".layui-card .operation-wrapper .delete").click(function() {
+				// console.log($(this).parent().siblings(".serial").text());
+				layer.confirm('确认删除该群组吗？', {
+					btn: ['关闭', '确认'], //按钮
+					closeBtn: 0
+				}, function(index) {
+					layer.close(index);
+				}, function() {
+					layer.msg('删除成功！');
+				});
+			});
+		</script>
+	</body>
+</html>

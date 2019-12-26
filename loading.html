@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+		<meta http-equiv="expires" content="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>微信管理平台</title>
+		<!-- 重置样式 -->
+		<link rel="stylesheet" href="css/reset.css">
+		<!-- icon -->
+		<link rel="stylesheet" href="css/fonts.css">
+		<link rel="stylesheet" href="css/animate.css">
+		<link rel="stylesheet" href="js/layui/css/layui.css">
+		<link rel="stylesheet" href="css/loading.css">
+		<style type="text/css">
+			.loading-wrapper {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: #fff;
+			}
+
+			.loading-wrapper .loading{
+				position: absolute;
+				color: #000;
+				top: 45%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.loading-wrapper .logo {
+				width: 200px;
+				position: absolute;
+				top: 10%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.loading-wrapper .text {
+				font-size: 15px;
+				color: #999;
+				position: absolute;
+				top: 60%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="loading-wrapper">
+			<img class="logo" src="img/gmmc-logo.png">
+			<div class="loading">Loading..</div>
+			<p class="text">正在进入聊天管理工具</p>
+		</div>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/layui/layui.js"></script>
+		<script>
+			let loading = $('.loading').wrapInner('<div></div>'),
+				min = 20,
+				max = 70,
+				minMove = 10,
+				maxMove = 20;
+
+			startAnimation(loading);
+
+			loading.on('animationend webkitAnimationEnd oAnimationEnd', 'span:last-child', e => {
+				startAnimation(loading);
+			});
+
+			//设置CSS变量并根据需要生成跨距
+			function setCSSVars(elem, min, max, minMove, maxMove) {
+				let width = Math.ceil(elem.width()),
+					text = elem.text();
+				for (let i = 1; i < width; i++) {
+					let num = Math.floor(Math.random() * (max - min + 1)) + min,
+						numMove = Math.floor(Math.random() * (maxMove - minMove + 1)) + minMove,
+						dir = (i % 2 == 0) ? 1 : -1,
+						spanCurrent = elem.find('span:eq(' + i + ')'),
+						span = spanCurrent.length ? spanCurrent : $('<span />');
+					span.css({
+						'--x': i - 1 + 'px',
+						'--move-y': num * dir + 'px',
+						'--move-y-s': ((i % 2 == 0) ? num * dir - numMove : num * dir + numMove) + 'px',
+						'--delay': i * 10 + 'ms'
+					});
+					if (!spanCurrent.length) {
+						elem.append(span.text(text));
+					}
+				}
+			}
+
+			//开始动画
+			function startAnimation(elem) {
+				elem.removeClass('start');
+				setCSSVars(elem, min, max, minMove, maxMove);
+				void elem[0].offsetWidth;
+				elem.addClass('start');
+			};
+
+			// 判断打开网址的设备是pc还是移动端
+			var ua = navigator.userAgent.toLocaleLowerCase();
+			var pf = navigator.platform.toLocaleLowerCase();
+			var isAndroid = (/android/i).test(ua) || ((/iPhone|iPod|iPad/i).test(ua) && (/linux/i).test(pf)) ||
+				(/ucweb.*linux/i.test(ua));
+			var isIOS = (/iPhone|iPod|iPad/i).test(ua) && !isAndroid;
+			var isWinPhone = (/Windows Phone|ZuneWP7/i).test(ua);
+
+			var mobileType = {
+				pc: !isAndroid && !isIOS && !isWinPhone,
+				ios: isIOS,
+				android: isAndroid,
+				winPhone: isWinPhone
+			};
+
+			console.log(mobileType.pc);
+			if (mobileType.pc == true) {
+				setTimeout(function() {
+					window.location.href = 'login.html';
+				}, 2000)
+			} else {
+				setTimeout(function() {
+					window.location.href = '移动端网址';
+				}, 2000)
+			}
+		</script>
+	</body>
+</html>

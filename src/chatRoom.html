@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	<meta http-equiv="expires" content="0">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>微信群管理平台</title>
+	<!-- 重置样式 -->
+	<link rel="stylesheet" href="../css/reset.css">
+	<!-- icon -->
+	<link rel="stylesheet" href="../css/fonts.css">
+	<link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../js/layui/css/layui.css">
+	<link rel="stylesheet" href="../css/animate.css">
+	<link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+	<div id="fullPage">
+		<canvas id="canvas"></canvas>
+	</div>
+	<div class="chat-room-wrapper">
+		<div class="animated slideInRight left-wrapper blank-wrapper">
+			<div class="tips-chat-text">欢迎来到聊天室</div>
+		</div>
+		<div class="left-wrapper data-chat-wrapper" style="display: none;">
+			<div class="group-name-wrapper">刘翔+先生+湘A159M8+奕歌+1组</div>
+			<div class="group-chat-content">
+				<!-- @标识框 -->
+				<div class="atTipWrapper" style="display: none;">
+					<span class="text">有人@我</span>
+				</div>
+				<!-- @标识框 -->
+				<div class="loadmore" style="display: none;">
+					<div class="loading-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+							<rect transform="rotate(0 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(30 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.083s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(60 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.166s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(90 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.25s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(120 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.333s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(150 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.416s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(180 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.5s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(210 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.583s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(240 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.666s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(270 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.75s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(300 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.833s"
+									repeatCount="indefinite"></animate>
+							</rect>
+							<rect transform="rotate(330 50 50) translate(0 -25)">
+								<animate attributeName="opacity" from="1" to="0" dur="1s" begin="0.916s"
+									repeatCount="indefinite"></animate>
+							</rect>
+						</svg>
+					</div>
+					<span class="loading-text">加载更多消息</span>
+				</div>
+				<p class="date">下午 14:27</p>
+				<div class="right-chatmodel">
+					<div class="chat-content">
+						<span class="read-text">2人已读</span>
+						<div class="text-content">
+							刘翔先生您好！您的爱车12月15日前到店可享受免费冬季全面检查，还可参与多重优惠套餐服务，重头戏是200元意向金可获赠2380元保养大礼包，200元还可抵用商业险保费。详询：82227525
+						</div>
+					</div>
+					<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">
+				</div>
+				<div class="left-chatmodel">
+					<!-- 头像 -->
+					<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">
+					<!-- 发送内容 -->
+					<div class="chat-content">
+						<!-- 用户名 -->
+						<p class="username">刘翔+先生+湘A159M8+奕歌+1组</p>
+						<div class="send-content-wrapper">
+							<!-- 文字内容 -->
+							<div class="text-content">好的，谢谢你</div>
+							<!-- 消息已读 -->
+							<span class="read-text">2人已读</span>
+						</div>
+					</div>
+				</div>
+				<div class="left-chatmodel">
+					<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">
+					<div class="chat-content">
+						<p class="username">湘A55U8E车主</p>
+						<div class="send-content-wrapper">
+							<img class="chat-img" src="../img/img01.jpeg">
+							<span class="read-text">2人已读</span>
+						</div>
+					</div>
+				</div>
+				<div class="left-chatmodel">
+					<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">
+					<div class="chat-content">
+						<p class="username">湘A55U8E车主</p>
+						<div class="send-content-wrapper">
+							<img class="chat-img" src="../img/img01.jpeg">
+							<span class="read-text">2人已读</span>
+						</div>
+					</div>
+				</div>
+				<div class="left-chatmodel">
+					<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">
+					<div class="chat-content">
+						<p class="username">湘A55U8E车主</p>
+						<div class="send-content-wrapper">
+							<img class="chat-img" src="../img/img01.jpeg">
+							<span class="read-text">2人已读</span>
+						</div>
+					</div>
+				</div>
+				<div class="left-chatmodel">
+					<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">
+					<div class="chat-content">
+						<p class="username">湘A55U8E车主</p>
+						<div class="send-content-wrapper">
+							<img class="chat-img" src="../img/img01.jpeg">
+							<span class="read-text">2人已读</span>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- <div class="right-chatmodel">
+						<div class="chat-content">
+							<span class="read-text">2人已读</span>
+							<img class="chat-img" src="../img/img01.jpeg">
+						</div>
+						<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">
+					</div> -->
+				<div class="right-chatmodel">
+					<div class="chat-content">
+						<span class="read-text">2人已读</span>
+						<div class="text-content">不客气的刘先生，您有时间的话可以直接在群里@我们哦！</div>
+					</div>
+					<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">
+				</div>
+
+			</div>
+			<div class="edit-message-wrapper">
+				<div class="tool-wrapper">
+					<div class="at-wrapper">
+						<span class="at-text">@</span>
+					</div>
+					<div class="upload-image-wrapper">
+						<i class="iconfont icon-faimlyalbum"></i>
+						<input id="upload-image-input" name="upload-image-input" type="file">
+					</div>
+				</div>
+				<div class="write-wrapper">
+					<textarea id="write-textarea" rows="4" placeholder="请输入文字..."></textarea>
+				</div>
+				<div class="btn-wrapper">
+					<input class="send-btn" type="button" value="发送">
+				</div>
+			</div>
+		</div>
+		<div class="animated slideInRight right-wrapper">
+			<div class="search-wrapper">
+				<i class="iconfont icon-search"></i>
+				<input class="search-input" type="text" placeholder="搜索">
+			</div>
+			<div class="group-list-wrapper">
+				<div class="unread-groupwrapper opened">
+					<div class="unread">未读群组<span class="tipdot-num"><span class="num">5</span></span></div>
+					<i class="iconfont icon-next"></i>
+				</div>
+				<ul class="group-list unread-group-list">
+					<li class="group-item">
+						<div class="group-name">刘翔+先生+湘A159M8+奕歌+1组</div>
+						<div class="group-last-message"><span class="mes-num">[2条]</span>不客气的刘先生，您有时间的话可以直接在群里@我们哦！
+						</div>
+					</li>
+					<li class="group-item">
+						<div class="group-name">李丹+女士+湘A38MU2+欧蓝德+2组</div>
+						<div class="group-last-message"><span class="at-tip">[有人@我]</span>好的</div>
+					</li>
+					<li class="group-item">
+						<div class="group-name">罗振宇+先生+湘A988A8+帕杰罗+1组</div>
+						<div class="group-last-message"><span
+								class="mes-num">[1条]</span>湘A988A8车主：请问有人在吗？我的车出了点问题，想要咨询一下</div>
+					</li>
+					<li class="group-item">
+						<div class="group-name">刘雯+女士+湘A8U98A+奕歌+2组</div>
+						<div class="group-last-message"></div>
+					</li>
+					<li class="group-item">
+						<div class="group-name">曲筱+女士+湘A3U8Z9+帕杰罗+1组</div>
+						<div class="group-last-message"></div>
+					</li>
+					<li class="group-item">
+						<div class="group-name">刘雯+女士+湘A8U98A+奕歌+2组</div>
+						<div class="group-last-message"></div>
+					</li>
+					<li class="group-item">
+						<div class="group-name">曲筱+女士+湘A3U8Z9+帕杰罗+1组</div>
+						<div class="group-last-message"></div>
+					</li>
+					<li class="group-item">
+						<div class="group-name">刘雯+女士+湘A8U98A+奕歌+2组</div>
+						<div class="group-last-message"></div>
+					</li>
+					<li class="group-item">
+						<div class="group-name">曲筱+女士+湘A3U8Z9+帕杰罗+1组</div>
+						<div class="group-last-message"></div>
+					</li>
+				</ul>
+				<div class="read-groupwrapper">
+					<div class="read">已读群组</div>
+					<i class="iconfont icon-next"></i>
+				</div>
+				<ul class="group-list read-group-list" style="display: none;">
+					<li class="group-item">
+						<div class="group-name">吴萌新+女士+湘A87688+奕歌+1组</div>
+						<div class="group-last-message"><span class="mes-num">[2条]</span>不客气的吴女士，您有时间的话可以直接在群里@我们哦！
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 查看Modal -->
+	<div class="modal fade" id="atMemberModal" tabindex="-1" role="dialog" aria-labelledby="atMemberModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="atMemberModalLabel">选择</h4>
+				</div>
+				<div class="modal-body">
+					<form class="layui-form">
+						<div class="layui-form-item">
+							<div class="layui-input-block">
+								<input type="radio" name="roleName" lay-filter="atMemberSelect" value="1"
+									title="服务顾问张静">
+								<input type="radio" name="roleName" lay-filter="atMemberSelect" value="2"
+									title="组合服务顾问马晓杰">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/layui/layui.js"></script>
+	<script src="../js/exif.js"></script>
+	<script src="../js/previewImage.js"></script>
+	<script>
+		// 滚动条置地
+		function scrollBtm() {
+			// 默认打开聊天时滚动条置底
+			let leftHeight = 0;
+			$(".group-chat-content .left-chatmodel").each(function () {
+				leftHeight += $(this).innerHeight();
+			});
+			let rightHeight = 0;
+			$(".group-chat-content .right-chatmodel").each(function () {
+				rightHeight += $(this).innerHeight();
+			});
+			let chatContentHeight = $('.group-chat-content .date').innerHeight() + leftHeight + rightHeight;
+			$('.group-chat-content').scrollTop(chatContentHeight);
+		};
+
+		// 上滑加载更多
+		function scrollLoadingMore() {
+			$('.group-chat-content').scroll(function () {
+				let scrollTop = $('.group-chat-content').scrollTop(); //获取滚动条的位置
+				if (scrollTop == 0) { // 滚动条滑至顶部时
+					// 用ajax判断 是否存在更多聊天记录 存在则显示加载更多 不存在则不显示
+					let isScroll = true; // 假设存在
+					if (isScroll) {
+						$(".loadmore").show(); // 存在更多消息 则显示加载更多消息
+						// 用ajax请求更多消息 并展示出来
+						// $.ajax({
+						// 	url: '',
+						// 	data: {},
+						// 	success: function(){},
+						// 	fail: function(){}
+						// });
+						var html = '<div class="right-chatmodel"><div class="chat-content"><span class="read-text">2人已读</span><div class="text-content">刘翔先生您好！</div></div><img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20"></div>';
+						setTimeout(function () {
+							$(".group-chat-content").find('.loadmore').nextAll().remove(); // 将加载后面的聊天记录全部删除
+							$(".group-chat-content").find('.loadmore').after(html); // 在加载框的后面赋值数据
+							// console.log('');
+							$(".loadmore").hide(); // 获取到数据后加载更多隐藏
+							// $(".group-chat-content").find('.date').before(html); // 将数据赋值
+							let oldHeight = $(".group-chat-content").children().eq(1).offset().top - 20; // 拿到加载前第一个元素距离顶部的高度
+							$('.group-chat-content').scrollTop(oldHeight); // 滚动条回到之前加载数据时距离顶部的高度
+						}, 1000);
+					}
+
+				} else {
+					$(".loadmore").hide();
+				}
+			});
+		};
+		scrollLoadingMore();
+		$(".group-item").click(function () {
+			$(".data-chat-wrapper").show();
+			$(".blank-wrapper").hide();
+			scrollBtm();
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".group-name-wrapper").text($(this).children(".group-name").text());
+		});
+
+		// 判断是否有@我的消息
+		// 通过ajax请求到是否有@的消息 这里默认有
+		var atState = true;
+		if (atState) {
+			$(".atTipWrapper").show(); // 有@消息显示
+		} else {
+			$(".atTipWrapper").hide(); // 无@消息隐藏
+		};
+
+		// 点击有人@我 滚动条滚到消息那一行
+		$(".atTipWrapper").click(function () {
+			$('.group-chat-content').animate({ //获取滚动条的位置
+				scrollTop: 0
+			}, 300);
+		});
+
+		// 预览图片
+		var wxScale = new WxScale({
+			fullPage: document.querySelector("#fullPage"),
+			canvas: document.querySelector("#canvas")
+		});
+		$(".chat-img").each(function () {
+			$(this).click(function () {
+				wxScale.start(this); //这里的this指向需要放大的这张图片
+			});
+		});
+
+		//将base64转换为文件
+		function dataURLtoFile(dataurl, filename) {
+			var arr = dataurl.split(','),
+				mime = arr[0].match(/:(.*?);/)[1],
+				bstr = atob(arr[1]),
+				n = bstr.length,
+				u8arr = new Uint8Array(n);
+			while (n--) {
+				u8arr[n] = bstr.charCodeAt(n);
+			}
+			return new File([u8arr], filename, {
+				type: mime
+			});
+		}
+		$('input[name="upload-image-input"]').bind('change', function (e) {
+			let file = e.target.files[0];
+			if (file.size == 0) {
+				alert('照片上传失败，上传的照片无效');
+				$(this).val() == '';
+			} else {
+				console.log('image   ' + $(this).val());
+				//图片方向角 added by lzk
+				let Orientation = null;
+				let inputFileInfo = $(this).val();
+				let that = this;
+				//$("#loadingState").show();
+				//获取照片方向角属性，用户旋转控制
+				EXIF.getData(file, function () {
+					EXIF.getAllTags(this);
+					Orientation = EXIF.getTag(this, 'Orientation');
+					var reader1 = new FileReader();
+					var re = reader1.readAsDataURL(file);
+					var image = new Image();
+					//定义流对象事件
+					reader1.onload = function (e) {
+						image.src = this.result;
+					}
+					// 缩放图片需要的canvas
+					var canvas = document.createElement('canvas');
+					var context = canvas.getContext('2d');
+					// 定义image 事件
+					//base64地址图片加载完毕后
+					var compressoption = {
+						maxWidth: 400,
+						maxHeight: 400,
+						quality: 0.7
+					}
+					image.onload = function () {
+						//// 图片原始尺寸
+						var originWidth = this.width;
+						var originHeight = this.height;
+						// 最大尺寸限制
+						var maxWidth = compressoption.maxWidth || 400,
+							maxHeight = compressoption.maxHeight || 400;
+						// 目标尺寸
+						var targetWidth = originWidth,
+							targetHeight = originHeight;
+						// 图片尺寸超过400x400的限制
+						if (originWidth > maxWidth || originHeight > maxHeight) {
+							if (originWidth / originHeight > maxWidth / maxHeight) {
+								// 更宽，按照宽度限定尺寸
+								targetWidth = maxWidth;
+								targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+							} else {
+								targetHeight = maxHeight;
+								targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+							}
+						}
+						// canvas对图片进行缩放
+						canvas.width = targetWidth;
+						canvas.height = targetHeight;
+						// 清除画布
+						context.clearRect(0, 0, targetWidth, targetHeight);
+						// 图片压缩
+						context.drawImage(image, 0, 0, targetWidth, targetHeight);
+						//修复ios
+						var dataURL = "";
+						if (navigator.userAgent.match(/iphone/i)) {
+							// console.log('iphone');
+							//alert(expectWidth + ',' + expectHeight);
+							//如果方向角不为1，都需要进行旋转 added by lzk
+							if (Orientation != "" && Orientation != 1 && Orientation != undefined) {
+								// alert('旋转处理');
+								switch (Orientation) {
+									case 6: //需要顺时针（向左）90度旋转
+										// alert('需要顺时针（向左）90度旋转');
+										rotateImg(this, 'left', canvas);
+										break;
+									case 8: //需要逆时针（向右）90度旋转
+										// alert('需要顺时针（向右）90度旋转');
+										rotateImg(this, 'right', canvas);
+										break;
+									case 3: //需要180度旋转
+										// alert('需要180度旋转');
+										rotateImg(this, 'right', canvas); //转两次
+										rotateImg(this, 'right', canvas);
+										break;
+								}
+							}
+							dataURL = canvas.toDataURL("image/jpeg", 0.7);
+						} else if (navigator.userAgent.match(/Android/i)) { // 修复android
+							dataURL = canvas.toDataURL(compressoption.mime || "image/jpeg", compressoption.quality || 0.7);
+						} else {
+							//alert(Orientation);
+							if (Orientation != "" && Orientation != 1 && Orientation != undefined) {
+								//alert('旋转处理');
+								switch (Orientation) {
+									case 6: //需要顺时针（向左）90度旋转
+										rotateImg(this, 'left', canvas);
+										break;
+									case 8: //需要逆时针（向右）90度旋转
+										rotateImg(this, 'right', canvas);
+										break;
+									case 3: //需要180度旋转
+										rotateImg(this, 'right', canvas); //转两次
+										rotateImg(this, 'right', canvas);
+										break;
+								}
+							}
+
+							dataURL = canvas.toDataURL("image/jpeg", 0.7);
+						}
+
+						$("#uploaderFiles").append('<li class="weui-uploader__file" style="background-image:url(' + dataURL +
+							')"><i class="iconfont icon-cancelwhite"></i></li>');
+						// canvas压缩并上传
+						var fileObject = dataURLtoFile(dataURL, file.name);
+						// console.log(fileObject);
+						var formdata = new FormData();
+						formdata.append('fileType', 'img'); //文件格式
+						formdata.append('fileType_file', fileObject);
+						formdata.append('method', 'upload');
+						console.log('fileType_file', fileObject);
+						$('input[name="upload-image-input"]').val("");
+						// $("#loadingState").show();
+						// 							$.ajax({
+						// 								url: "/Handle/Dis.ashx",
+						// 								method: 'POST',
+						// 								processData: false,
+						// 								contentType: false,
+						// 								cache: false,
+						// 								data: formdata
+						// 							}).done((response) => {
+						// 								let data = JSON.parse(response);
+						// 
+						// 								if (data.Result == true) {
+						// 									let path = data.Data[0].Path;
+						// 									var formdata2 = new FormData();
+						// 									formdata2.append('fileType', 'LSN');
+						// 									formdata2.append('fileType_file', path);
+						// 									formdata2.append('method', 'Distinguish');
+						// 									$.ajax({
+						// 										url: "/Handle/Dis.ashx",
+						// 										method: 'POST',
+						// 										processData: false,
+						// 										contentType: false,
+						// 										cache: false,
+						// 										data: formdata2
+						// 									}).done((response) => {
+						// 										$("#loadingState").hide();
+						// 										let data2 = JSON.parse(response);
+						// 										if (data2.Result == true) {
+						// 											let LSN = data2.Data;
+						// 											$("#Key").val(LSN);
+						// 											$("#search-btn-id").trigger("click");
+						// 										} else {
+						// 											alert(data2.Data);
+						// 										}
+						// 
+						// 									}).fail((err) => {
+						// 										console.log(err);
+						// 									})
+						// 								} else {
+						// 									alert('上传图片无效!请重新上传');
+						// 								}
+						// 
+						// 
+						// 							}).fail((err) => {
+						// 								console.log(err);
+						// 							})
+
+					}
+				});
+			}
+		});
+		var writeTextarea = document.getElementById('write-textarea');
+		writeTextarea.onkeydown = function (e) {
+			let code = e.keyCode;
+			let ctrl = e.ctrlKey;
+			let shift = e.shiftKey;
+			let alt = e.altKey;
+			let writeValue = writeTextarea.value;
+			if (code == '10' && ctrl && !shift && !alt) {
+				//ctrl + enter
+				if (writeTextarea.value == '') {
+					return false;
+				} else {
+					var chatHtml = '<div class="right-chatmodel">' +
+						'<div class="chat-content">' +
+						'<span class="unread-text">未读</span>' +
+						'<div class="text-content">' + writeTextarea.value + '</div>' +
+						'</div>' +
+						'<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">' +
+						'</div>';
+					$(".group-chat-content").append(chatHtml);
+					$("#write-textarea").val("");
+					let scrollHeight = $(".group-chat-content").prop("scrollHeight");
+					$('.group-chat-content').animate({
+						scrollTop: scrollHeight
+					}, 400);
+				}
+			}
+			if (code == '13' && !ctrl && !shift && alt) {
+				//shift + enter
+				if (writeTextarea.value == '') {
+					return false;
+				} else {
+					var chatHtml = '<div class="right-chatmodel">' +
+						'<div class="chat-content">' +
+						'<span class="unread-text">未读</span>' +
+						'<div class="text-content">' + writeTextarea.value + '</div>' +
+						'</div>' +
+						'<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">' +
+						'</div>';
+					$(".group-chat-content").append(chatHtml);
+					$("#write-textarea").val("");
+					let scrollHeight = $(".group-chat-content").prop("scrollHeight");
+					$('.group-chat-content').animate({
+						scrollTop: scrollHeight
+					}, 400);
+				}
+			}
+			if (code == '13' && !ctrl && !shift && !alt) {
+				//只按了enter
+			}
+		};
+		$(".send-btn").click(function () {
+			// alert("输入了" + writeTextarea.value);
+			if (writeTextarea.value == '') {
+				return false;
+			} else {
+				var chatHtml = '<div class="right-chatmodel">' +
+					'<div class="chat-content">' +
+					'<span class="unread-text">未读</span>' +
+					'<div class="text-content">' + writeTextarea.value + '</div>' +
+					'</div>' +
+					'<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">' +
+					'</div>';
+				$(".group-chat-content").append(chatHtml);
+				$("#write-textarea").val("");
+				let scrollHeight = $(".group-chat-content").prop("scrollHeight");
+				$('.group-chat-content').animate({
+					scrollTop: scrollHeight
+				}, 400);
+			}
+		});
+
+		// 监听 文本框输入操作 如输入了@符号则弹出群组人员名单 可点击进行@
+		var oldTextareaValue = "";
+		$("#write-textarea").bind('input propertychange', function () {
+			oldTextareaValue = $(this).val();
+		})
+		layui.use('form', function () {
+			var form = layui.form;
+			// 点击@人物框内的人物
+			form.on('radio(atMemberSelect)', function (data) {
+				let newTextareaValue = oldTextareaValue + '@' + data.elem.title; //点击人物名称后 人名前默认添加@符号
+				let roleId = data.value; // 拿到人名的Id
+				console.log(newTextareaValue, roleId);
+				var chatHtml = '<div class="right-chatmodel">' +
+					'<div class="chat-content">' +
+					'<span class="unread-text">未读</span>' +
+					'<div class="text-content">' + newTextareaValue + '</div>' +
+					'</div>' +
+					'<img class="avatar" src="../img/avatar.png" alt="avatar" width="20" height="20">' +
+					'</div>';
+				$(".group-chat-content").append(chatHtml); // 将拼接的聊天内容添加至聊天框末尾
+				$("#atMemberModal").modal('hide'); // 模态框隐藏
+				scrollBtm(); // 添加完后滚动条置底
+			});
+		});
+
+		// 模糊查询
+		var search_input = $(".search-input"),
+			search_content = $(".group-list .group-item .group-name");
+		$(search_input).keyup(function () {
+			if (search_input.val() == '') {
+				$(".group-list").show();
+			}
+			$(".group-list .group-item .group-name:contains(" + search_input.val().trim() + ")").parent().show();
+			$(".group-list .group-item .group-name:not(:contains(" + search_input.val().trim() + "))").parent().hide();
+		});
+
+		// 点击展开未读群组 已读群组
+		$(".unread-groupwrapper").click(function () {
+			if ($(this).hasClass('opened')) {
+				$(this).removeClass('opened');
+				$(".unread-group-list").hide();
+			} else {
+				$(this).addClass('opened');
+				$(".unread-group-list").show();
+			}
+		});
+		$(".read-groupwrapper").click(function () {
+			if ($(this).hasClass('opened')) {
+				$(this).removeClass('opened');
+				$(".read-group-list").hide();
+			} else {
+				$(this).addClass('opened');
+				$(".read-group-list").show();
+			}
+		});
+
+		// 点击@符号弹出选择人物框
+		$(".at-text").click(function () {
+			$("#atMemberModal").modal('show');
+		});
+	</script>
+</body>
+
+</html>

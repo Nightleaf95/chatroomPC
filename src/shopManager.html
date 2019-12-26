@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+		<meta http-equiv="expires" content="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>微信群管理平台</title>
+		<!-- 重置样式 -->
+		<link rel="stylesheet" href="../css/reset.css">
+		<!-- icon -->
+		<link rel="stylesheet" href="../css/fonts.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../js/layui/css/layui.css">
+		<link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/main.css">
+	</head>
+
+	<body>
+		<div class="animated slideInRight shop-manager-model">
+			<div class="add-btn-wrapper">
+				<button class="layui-btn danger-bg" data-toggle="modal" data-target="#addShopModal">新增店铺</button>
+				<div class="layui-btn normal-bg import-cus-wrapper">导入店铺<input class="import-cus-input" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"></div>
+				<a class="download-template-btn">下载模板</a>
+			</div>
+			<div class="table-wrapper">
+				<table class="layui-table" id="shop-table">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>店代码</th>
+							<th>店名称</th>
+							<th>管理员帐号</th>
+							<th>管理员密码</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td class="shopId">DD001</td>
+							<td class="shopName">三菱蓝天店</td>
+							<td class="managerAccount">admin</td>
+							<td class="managerPsw">admin123456</td>
+							<td class="state use">可用</td>
+							<td>
+								<span class="edit">修改</span>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td class="shopId">DD002</td>
+							<td class="shopName">三菱炜坤店</td>
+							<td class="managerAccount">admin</td>
+							<td class="managerPsw">admin123456</td>
+							<td class="state use">可用</td>
+							<td>
+								<span class="edit">修改</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="paging"></div>
+		</div>
+		<!-- 新增用户Modal -->
+		<div class="modal fade" id="addShopModal" tabindex="-1" role="dialog" aria-labelledby="addShopModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="layui-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="addShopModalLabel">新增</h4>
+						</div>
+						<div class="modal-body">
+							<div class="layui-form-item">
+								<label class="layui-form-label">店代码</label>
+								<div class="layui-input-block">
+									<input type="text" name="shopId" required lay-verify="required" placeholder="请输入店代码" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">店名称</label>
+								<div class="layui-input-block">
+									<input type="text" name="shopName" required lay-verify="required" placeholder="请输入店名称" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">管理员帐号</label>
+								<div class="layui-input-block">
+									<input type="text" name="managerAccount" placeholder="请输入管理员帐号" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">管理员密码</label>
+								<div class="layui-input-block">
+									<input type="text" name="managerPsw" placeholder="请输入管理员密码" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">状态</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="shopState" name="state" value="use" title="可用" checked>
+									<input type="radio" lay-filter="shopState" name="state" value="unuse" title="不可用">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn danger-bg" lay-submit lay-filter="addShopSubmit">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- 修改用户Modal -->
+		<div class="modal fade" id="editShopModal" tabindex="-1" role="dialog" aria-labelledby="editShopModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="layui-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="editShopModalLabel">修改</h4>
+						</div>
+						<div class="modal-body">
+							<div class="layui-form-item">
+								<label class="layui-form-label">店代码</label>
+								<div class="layui-input-block">
+									<input type="text" name="editShopId" required lay-verify="required" placeholder="请输入店代码" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">店名称</label>
+								<div class="layui-input-block">
+									<input type="text" name="editShopName" required lay-verify="required" placeholder="请输入店名称" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">管理员帐号</label>
+								<div class="layui-input-block">
+									<input type="text" name="editManagerAccount" placeholder="请输入管理员帐号" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">管理员密码</label>
+								<div class="layui-input-block">
+									<input type="text" name="editManagerPsw" placeholder="请输入管理员密码" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">状态</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="editShopState" name="editState" value="use" title="可用" checked>
+									<input type="radio" lay-filter="editShopState" name="editState" value="unuse" title="不可用">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn danger-bg" lay-submit lay-filter="editShopSubmit">修改</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 公共导航栏 -->
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+		<script>
+			// 实例化表单
+			layui.use('form', function() {
+				var form = layui.form;
+				form.on('submit(addShopSubmit)', function(data) {
+					let shopId = data.field.shopId; //店代码
+					let shopName = data.field.shopName; //店名称
+					let managerAccount = data.field.managerAccount; //管理员帐号
+					let managerPsw = data.field.managerPsw; //管理员密码
+					let state = data.field.state; //店铺状态
+					console.log(data.field);
+					// $.ajax({
+					// 	type: "POST",
+					// 	url: "",
+					// 	data: "",
+					// 	//请求成功
+					// 	success: function(data) {
+					// 		console.log(data);
+					// 	},
+					// 	//请求失败，包含具体的错误信息
+					// 	error: function(e) {
+					// 		console.log(e.status);
+					// 		console.log(e.responseText);
+					// 	}
+					// });
+					return false;
+				});
+
+				//修改店铺 提交
+				$(".edit").click(function() {
+					let shopId = $(this).parent().siblings(".shopId").text();
+					$("input[name=editShopId]").val(shopId);
+					let shopName = $(this).parent().siblings(".shopName").text();
+					$("input[name=editShopName]").val(shopName);
+					let managerAccount = $(this).parent().siblings(".managerAccount").text();
+					$("input[name=editManagerAccount]").val(managerAccount);
+					let managerPsw = $(this).parent().siblings(".managerPsw").text();
+					$("input[name=editManagerPsw]").val(managerPsw);
+					let state = $(this).parent().siblings(".state").text();
+					$("input[name=editState]").each(function() {
+						if ($(this).attr('title') == state) {
+							$(this).attr('checked', true);
+						}
+					});
+					form.render('radio');
+					$("#editShopModal").modal('show');
+				});
+				form.on('submit(editShopSubmit)', function(data) {
+					let shopId = data.field.editShopId; //店代码
+					let shopName = data.field.editShopName; //店名称
+					let managerAccount = data.field.editManagerAccount; //管理员帐号
+					let managerPsw = data.field.editManagerPsw; //管理员密码
+					let state = data.field.editState; //店铺状态
+					console.log(data.field);
+					// $.ajax({
+					// 	type: "POST",
+					// 	url: "",
+					// 	data: "",
+					// 	//请求成功
+					// 	success: function(data) {
+					// 		console.log(data);
+					// 	},
+					// 	//请求失败，包含具体的错误信息
+					// 	error: function(e) {
+					// 		console.log(e.status);
+					// 		console.log(e.responseText);
+					// 	}
+					// });
+					return false;
+				});
+			});
+
+			// 实例化分页
+			layui.use('laypage', function() {
+				var laypage = layui.laypage;
+
+				//执行一个laypage实例
+				laypage.render({
+					elem: 'paging',
+					limit: 5,
+					theme: '#E51C23',
+					count: 20, //数据总数，从服务端得到
+					jump: function(obj, first) {
+						//obj包含了当前分页的所有参数，比如：
+						console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+						console.log(obj.limit); //得到每页显示的条数
+
+						//首次不执行
+						if (!first) {
+							//do something
+						}
+					}
+				});
+			});
+
+			// 删除用户
+			$("#shop-table .delete").click(function() {
+				let shopId = $(this).parent().siblings(".shopId").text();
+				console.log(shopId);
+				layer.confirm('确认删除该客户吗？', {
+					btn: ['关闭', '确认'], //按钮
+					closeBtn: 0
+				}, function(index) {
+					layer.close(index);
+				}, function() {
+					layer.msg('删除成功！');
+				});
+			});
+
+			// 导入客户excel
+			$(".import-cus-input").bind('change', function(e) {
+				let file = e.target.files[0];
+				var formdata = new FormData();
+				formdata.append('fileType', 'excel'); //文件格式
+				formdata.append('fileType_file', file);
+				formdata.append('method', 'upload');
+				console.log('fileType_file', file);
+			});
+		</script>
+	</body>
+
+</html>

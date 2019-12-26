@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+		<meta http-equiv="expires" content="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>微信群管理平台</title>
+		<!-- 重置样式 -->
+		<link rel="stylesheet" href="../css/reset.css">
+		<!-- icon -->
+		<link rel="stylesheet" href="../css/fonts.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../js/layui/css/layui.css">
+		<link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/main.css">
+	</head>
+	<body>
+		<div id="fullPage">
+			<canvas id="canvas"></canvas>
+		</div>
+		<div class="animated slideInRight group-message-model">
+			<div class="screening-wrapper">
+				<form class="layui-form">
+					<div class="layui-form-item">
+						<label class="layui-form-label">标题</label>
+						<div class="layui-input-block title-input">
+							<input type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">类型</label>
+						<div class="layui-input-block">
+							<select name="city">
+								<option value="all">全部</option>
+								<option value="0">定保招徕</option>
+								<option value="1">续保招徕</option>
+								<option value="2">营销活动</option>
+								<option value="3">日常关怀</option>
+								<option value="4">其它</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">状态</label>
+						<div class="layui-input-block">
+							<select name="city">
+								<option value="all">全部</option>
+								<option value="0">成功</option>
+								<option value="1">未开始</option>
+								<option value="2">失败</option>
+							</select>
+						</div>
+					</div>
+
+					<button class="layui-btn" lay-submit lay-filter="formDemo">查询</button>
+				</form>
+			</div>
+			<div class="operation-btn-wrapper">
+				<button type="button" class="layui-btn danger-bg" id="add-btn" data-toggle="modal" data-target="#addModal">新增</button>
+				<button type="button" class="layui-btn normal-bg">全部导出</button>
+			</div>
+			<div class="table-wrapper">
+				<table class="layui-table" id="group-table">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>创建人</th>
+							<th>标题</th>
+							<th>类型</th>
+							<th>发送类型</th>
+							<th>图片</th>
+							<th>发送时间</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="serial">1</td>
+							<td class="founder">广汽三菱蓝天店客服马晓杰</td>
+							<td class="title">定保招徕</td>
+							<td class="type" data-id="0">定保招徕</td>
+							<td class="sendType" data-id="1">立即发</td>
+							<td class="images">
+								<img class="upload-img" src="../img/avatar.png">
+							</td>
+							<input class="import" type="hidden" value="0">
+							<input class="content" type="hidden" value="内容一">
+							<input class="carType" type="hidden" value="祺智">
+							<input class="carYear" type="hidden" value="1-2年">
+							<td>2019-12-02 14:02:25</td>
+							<td>
+								<span class="error">部分完成</span>
+							</td>
+							<td>
+								<span class="cancel">取消</span>
+								<span class="watch">查看</span>
+								<span class="sendRecord" data-toggle="modal" data-target="#sendRecordModal">发送记录</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="serial">2</td>
+							<td class="founder">广汽三菱蓝天店客服刘雯</td>
+							<td class="title">续保招徕</td>
+							<td class="type" data-id="1">续保招徕</td>
+							<td class="sendType" data-id="2">指定时间发</td>
+							<td class="images">
+								<img class="upload-img" src="../img/avatar.png">
+							</td>
+							<input class="import" type="hidden" value="1">
+							<input class="content" type="hidden" value="内容二">
+							<input class="carType" type="hidden" value="帕杰罗">
+							<input class="carYear" type="hidden" value="3-4年">
+							<td>2019-12-25 14:02:25</td>
+							<td>
+								<span class="success">成功</span>
+							</td>
+							<td>
+								<span class="cancel">取消</span>
+								<span class="watch">查看</span>
+								<span class="sendRecord" data-toggle="modal" data-target="#sendRecordModal">发送记录</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="serial">3</td>
+							<td class="founder">广汽三菱蓝天店客服刘雯</td>
+							<td class="title">营销活动</td>
+							<td class="type" data-id="2">营销活动</td>
+							<td class="sendType" data-id="2">指定时间发</td>
+							<td class="images">
+								<img class="upload-img" src="../img/avatar.png">
+							</td>
+							<input class="import" type="hidden" value="2">
+							<input class="content" type="hidden" value="内容三">
+							<input class="carType" type="hidden" value="帕杰罗">
+							<input class="carYear" type="hidden" value="3-4年">
+							<td>2019-12-25 14:02:25</td>
+							<td>
+								<span class="success">成功</span>
+							</td>
+							<td>
+								<span class="cancel">取消</span>
+								<span class="watch">查看</span>
+								<span class="sendRecord" data-toggle="modal" data-target="#sendRecordModal">发送记录</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="messageListPaging"></div>
+			</div>
+		</div>
+		<!-- 新增Modal -->
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">新增</h4>
+					</div>
+					<div class="modal-body">
+						<form class="layui-form">
+							<div class="layui-form-item">
+								<label class="layui-form-label">模板</label>
+								<div class="layui-input-block">
+									<select lay-filter="group-template" name="group-template">
+										<option value="">请选择群发模板</option>
+										<option value="0">模板-定保招徕</option>
+										<option value="1">模板-续保招徕</option>
+										<option value="2">模板-营销活动</option>
+										<option value="3">模板-日常关怀</option>
+										<option value="4">模板-其它</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">标题</label>
+								<div class="layui-input-block">
+									<input type="text" name="addTitle" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">类型</label>
+								<div class="layui-input-block">
+									<select id="addType" name="addType" lay-verify="required" lay-filter="addType">
+										<option value="all">全部</option>
+										<option value="0">定保招徕</option>
+										<option value="1">续保招徕</option>
+										<option value="2">营销活动</option>
+										<option value="3">日常关怀</option>
+										<option value="4">其它</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">内容</label>
+								<div class="layui-input-block">
+									<div class="variable-wrapper">
+										<span class="variable-text">插入变量：</span>
+										<div class="variable-itemlist">
+											<div class="item" id="f_addName">姓名</div>
+											<div class="item" id="f_addSex">性别</div>
+											<div class="item" id="f_addLsn">车牌号</div>
+											<div class="item" id="f_addShopname">店名</div>
+										</div>
+									</div>
+									<textarea name="variableTextarea" id="variable-textarea" rows="10" placeholder="请输入内容..."></textarea>
+								</div>
+							</div>
+							<div class="layui-form-item upload-img-item">
+								<label class="layui-form-label">图片</label>
+								<div class="layui-input-block">
+									<div class="upload-btn">本地上传<input id="addImage_input" type="file"></div>
+									<p class="tips">图片格式为png,jpg，图片大小不得超过3MB</p>
+									<div class="upload-img-wrapper" id="add-img-wrapper">
+										<div class="imgItem">
+											<img class="upload-img" src="../img/avatar.png">
+											<i class="iconfont icon-cancelwhite delete-image-btn"></i>
+										</div>
+										<div class="imgItem">
+											<img class="upload-img" src="../img/avatar.png">
+											<i class="iconfont icon-cancelwhite delete-image-btn"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">客户</label>
+								<div class="layui-input-block">
+									<div class="radio-wrapper">
+										<input type="radio" lay-filter="import" name="import" value="0" title="Excel导入">
+										<input type="radio" lay-filter="import" name="import" value="1" title="全部群发" checked>
+										<input type="radio" lay-filter="import" name="import" value="2" title="指定筛选">
+									</div>
+									<div class="excel-wrapper excel-import-wrapper" style="display: none;">
+										<div class="layui-btn danger-bg">从Excel导入<input type="file" id="import_excel_btn"></div>
+										<span class="excel-text">下载模板</span>
+									</div>
+									<div class="excel-wrapper add-import-wrapper" style="display: none;">
+										<div class="layui-form-item">
+											<label class="layui-form-label">客户车型</label>
+											<div class="layui-input-block">
+												<select name="addCarType" lay-filter="addCarType">
+													<option value="全部">全部</option>
+													<option value="奕歌">奕歌</option>
+													<option value="帕杰罗">帕杰罗</option>
+													<option value="欧蓝德">欧蓝德</option>
+													<option value="祺智">祺智</option>
+													<option value="劲炫">劲炫</option>
+												</select>
+											</div>
+										</div>
+										<div class="layui-form-item">
+											<label class="layui-form-label">购车年限</label>
+											<div class="layui-input-block">
+												<select name="addCarYear" lay-filter="addCarYear">
+													<option value="全部">全部</option>
+													<option value="1年以内">1年以内</option>
+													<option value="1-2年">1-2年</option>
+													<option value="2-3年">2-3年</option>
+													<option value="3-4年">3-4年</option>
+													<option value="4年以上">4年以上</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">发送</label>
+								<div class="layui-input-block">
+									<div class="send-time-wrapper">
+										<input type="radio" lay-filter="sendTime" name="sendTime" value="0" title="立即发" checked>
+										<input type="radio" lay-filter="sendTime" name="sendTime" value="1" title="指定时间发">
+									</div>
+									<div class="time-wrapper" style="display: none;">
+										<input type="text" class="layui-input" id="specifyTime" placeholder="选择指定时间">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn danger-bg" id="submit-add-btn">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 查看Modal -->
+		<div class="modal fade" id="watchModal" tabindex="-1" role="dialog" aria-labelledby="watchModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="watchModalLabel">查看</h4>
+					</div>
+					<div class="modal-body">
+						<form class="layui-form">
+							<div class="layui-form-item">
+								<label class="layui-form-label">标题</label>
+								<div class="layui-input-block">
+									<input type="text" name="watchTitle" autocomplete="off" class="layui-input" disabled>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">类型</label>
+								<div class="layui-input-block">
+									<select id="watchType" name="watchType" disabled>
+										<option value="all">全部</option>
+										<option value="0">定保招徕</option>
+										<option value="1">续保招徕</option>
+										<option value="2">营销活动</option>
+										<option value="3">日常关怀</option>
+										<option value="4">其它</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">内容</label>
+								<div class="layui-input-block">
+									<textarea name="watchVariableTextarea" id="variable-value" rows="10" disabled></textarea>
+								</div>
+							</div>
+							<div class="layui-form-item upload-img-item">
+								<label class="layui-form-label">图片</label>
+								<div class="layui-input-block">
+									<div class="upload-img-wrapper">
+										<img class="upload-img" src="../img/avatar.png">
+										<img class="upload-img" src="../img/avatar.png">
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">客户</label>
+								<div class="layui-input-block">
+									<div class="radio-wrapper">
+										<input type="radio" name="watchImport" value="0" title="Excel导入" disabled>
+										<input type="radio" name="watchImport" value="1" title="全部群发" disabled>
+										<input type="radio" name="watchImport" value="2" title="筛选条件" disabled>
+									</div>
+									<div class="excel-wrapper edit-excel-import-wrapper" style="display: none;">
+										<span>导入文件：<span>20191205客户清单.xls</span></span>
+										<a class="excel-text">下载</a>
+									</div>
+									<div class="excel-wrapper add-import-wrapper" style="display: none;">
+										<div class="layui-form-item">
+											<label class="layui-form-label">客户车型</label>
+											<div class="layui-input-block">
+												<select id="watchCarType" name="watchCarType" disabled>
+													<option value="全部">全部</option>
+													<option value="奕歌">奕歌</option>
+													<option value="帕杰罗">帕杰罗</option>
+													<option value="欧蓝德">欧蓝德</option>
+													<option value="祺智">祺智</option>
+													<option value="劲炫">劲炫</option>
+												</select>
+											</div>
+										</div>
+										<div class="layui-form-item">
+											<label class="layui-form-label">购车年限</label>
+											<div class="layui-input-block">
+												<select id="watchCarYear" name="watchCarYear" disabled>
+													<option value="全部">全部</option>
+													<option value="1年以内">1年以内</option>
+													<option value="1-2年">1-2年</option>
+													<option value="2-3年">2-3年</option>
+													<option value="3-4年">3-4年</option>
+													<option value="4年以上">4年以上</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">发送</label>
+								<div class="layui-input-block">
+									<div class="send-time-wrapper">
+										<input type="radio" name="watchSendTime" value="1" title="立即发" disabled>
+										<input type="radio" name="watchSendTime" value="2" title="指定时间发" disabled>
+									</div>
+									<div class="time-wrapper time-show-wrapper" style="display: none;">发送时间：<span>2019-12-05 14:30:55</span></div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 发送记录Modal -->
+		<div class="modal fade" id="sendRecordModal" tabindex="-1" role="dialog" aria-labelledby="sendRecordModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="sendRecordModalLabel">发送记录</h4>
+					</div>
+					<div class="modal-body">
+						<div class="process-wrapper">
+							<div class="process">
+								<p class="text">进度</p>
+								<div class="layui-progress" lay-showpercent="true" lay-filter="demo">
+									<div class="layui-progress-bar" lay-percent="0%"></div>
+								</div>
+							</div>
+							<div class="send-success">
+								<p class="text">成功</p>
+								<div class="num success">4</div>
+							</div>
+							<div class="send-fail">
+								<p class="text">失败</p>
+								<div class="num fail">0</div>
+							</div>
+						</div>
+
+						<div class="record-screening-wrapper">
+							<form class="layui-form">
+								<div class="layui-form-item">
+									<label class="layui-form-label">姓名</label>
+									<div class="layui-input-block">
+										<input type="text" name="title" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">车牌号</label>
+									<div class="layui-input-block">
+										<input type="text" name="title" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">状态</label>
+									<div class="layui-input-block">
+										<select name="city">
+											<option value="all">全部</option>
+											<option value="0">成功</option>
+											<option value="1">部分成功</option>
+											<option value="2">失败</option>
+										</select>
+									</div>
+								</div>
+								<button id="record-search-btn" class="layui-btn danger-bg">查询</button>
+							</form>
+						</div>
+						<div class="layui-btn normal-bg record-import-btn">导出</div>
+						<div class="record-table-wrapper">
+							<table class="layui-table">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>姓名</th>
+										<th>车牌号</th>
+										<th>发送时间</th>
+										<th>状态</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>陈龙</td>
+										<td>湘A98B82</td>
+										<td>2019-12-02 14:02:25</td>
+										<td><span class="success">成功</span></td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>如意</td>
+										<td>湘A23B12</td>
+										<td>2019-12-02 14:02:28</td>
+										<td><span class="error">部分成功</span></td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>程欢</td>
+										<td>湘A47M21</td>
+										<td>2019-12-02 14:02:45</td>
+										<td><span class="fail">失败</span></td>
+									</tr>
+								</tbody>
+							</table>
+							<div id="paging"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn danger-bg">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../js/exif.js"></script>
+		<script src="../js/previewImage.js"></script>
+		<script>
+			// 实例化表单
+			layui.use('form', function() {
+				var form = layui.form;
+				//监听提交
+				form.on('submit(formDemo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+			});
+			
+			// 预览图片
+			var wxScale=new WxScale({
+				fullPage:document.querySelector("#fullPage"),
+				canvas:document.querySelector("#canvas")
+			});
+			$(".upload-img").each(function() {
+				$(this).click(function() {
+					wxScale.start(this);   //这里的this指向需要放大的这张图片
+				});
+			});
+
+			// 实例化日期时间
+			var specifyTimeValue = "";
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+
+				//执行一个laydate实例
+				laydate.render({
+					elem: '#specifyTime', //指定元素
+					type: 'datetime', //日期格式可选择：年、月、日、时、分、秒
+					done: function(value) {
+						console.log(value);
+						specifyTimeValue = value;
+					}
+				});
+			});
+
+			// 实例化进度条
+			layui.use('element', function() {
+				var element = layui.element;
+				$(".layui-progress-bar").attr('lay-percent', '30%');
+				$(".layui-progress-bar .layui-progress-text").text('30%');
+				element.render('progress');
+			});
+
+			// 实例化分页
+			layui.use('laypage', function() {
+				var laypage = layui.laypage;
+
+				//执行一个laypage实例
+				laypage.render({
+					elem: 'paging',
+					limit: 5,
+					theme: '#E51C23',
+					count: 5, //数据总数，从服务端得到
+					jump: function(obj, first) {
+						//obj包含了当前分页的所有参数，比如：
+						console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+						console.log(obj.limit); //得到每页显示的条数
+					}
+				});
+				
+				//执行一个laypage实例
+				laypage.render({
+					elem: 'messageListPaging',
+					limit: 5,
+					theme: '#E51C23',
+					count: 5, //数据总数，从服务端得到
+					jump: function(obj, first) {
+						//obj包含了当前分页的所有参数，比如：
+						console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+						console.log(obj.limit); //得到每页显示的条数
+					}
+				});
+			});
+
+			// 取消发送群发消息
+			$("#group-table .cancel").click(function() {
+				// console.log($(this).parent().siblings(".serial").text());
+				layer.confirm('确认取消该条群发消息吗？', {
+					btn: ['关闭', '确认'], //按钮
+					closeBtn: 0
+				}, function(index) {
+					layer.close(index);
+				}, function() {
+					layer.msg('删除成功！');
+				});
+			});
+
+			// 新增群发消息
+			// 新增群发消息 删除图片
+			$("#add-img-wrapper").on('click', '.delete-image-btn',  function(){
+				$(this).parent().remove();
+			});
+			//新增类型默认为全部
+			var addTypeValue = "all";
+			var addCarTypeValue = "全部";
+			var addCarYearValue = "全部";
+			var sendTypeValue = "1";
+			var sendTimeValue = "0";
+			var addName = "${username}";
+			var addSex = "$(usersex)";
+			var addLsn = "$(userlsn)";
+			var addShopname = "$(shopname)";
+			layui.use('form', function() {
+				var form = layui.form;
+				// 监听类型选择框
+				form.on('select(addType)', function(data) {
+					addTypeValue = data.value;
+				});
+				
+				// 监听模板选择框
+				form.on('select(group-template)', function(data) {
+					console.log(data.value);
+					// $.ajax({
+					// 	url: '',
+					// 	data: {},
+					// 	success: function() {},
+					// 	fail: function() {}
+					// });
+					if (data.value == '') {
+						$("input[name=addTitle]").val('');
+						$("#addType").find('option[value=all]').prop('selected', true);
+						$("#variable-textarea").val('');
+						$("#add-img-wrapper").html('');
+						$("input[name=import]").eq(1).attr('checked', true).siblings().removeAttr('checked');
+						$(".add-import-wrapper").hide();
+						$(".edit-excel-import-wrapper").hide();
+						$("input[name=sendTime]").eq(0).attr('checked', true).siblings().removeAttr('checked');
+						$(".edit-excel-import-wrapper").hide();
+						form.render();
+					} else {
+						let importValue = '指定筛选';
+						let sendTime = '指定时间发';
+						$("input[name=addTitle]").val('定保招徕');
+						$("#addType").find('option[value=0]').prop('selected', true);
+						$("#variable-textarea").val('定保招徕的模板内容');
+						$("#add-img-wrapper").html('<div class="imgItem"><img class="upload-img" src="../img/avatar.png"><i class="iconfont icon-cancelwhite delete-image-btn"></i></div>');
+						$("input[name=import]").each(function() {
+							if ($(this).attr('title') == importValue) {
+								$(this).attr('checked', true);
+								if (importValue == '指定筛选') {
+									$(".add-import-wrapper").show();
+								} else if (importValue == 'Excel导入') {
+									$(".edit-excel-import-wrapper").show();
+								}
+							} else {
+								$(this).removeAttr('checked');
+							}
+						});
+						$("input[name=sendTime]").each(function(){
+							if ($(this).attr('title') == sendTime) {
+								$(this).attr('checked', true);
+								if (sendTime == '指定时间发') {
+									$(".edit-excel-import-wrapper").show();
+								}
+							} else {
+								$(this).removeAttr('checked');
+							}
+						});
+						form.render();
+					}
+				});
+				
+				// 车型选择框
+				form.on('select(addCarType)', function(data) {
+					addCarTypeValue = data.value;
+				});
+				
+				// 购车年限选择框
+				form.on('select(addCarYear)', function(data) {
+					addCarYearValue = data.value;
+				});
+
+				// 监听 新增群发方式
+				form.on('radio(import)', function(data) {
+					console.log(data.value); //被点击的radio的value值
+					sendTypeValue = data.value;
+					if (data.value == 0) {
+						$(".excel-import-wrapper").show();
+						$(".add-import-wrapper").hide();
+					} else if (data.value == 2) {
+						$(".add-import-wrapper").show();
+						$(".excel-import-wrapper").hide();
+					} else {
+						$(".excel-import-wrapper").hide();
+						$(".add-import-wrapper").hide();
+					}
+				});
+
+				// 监听 发送时间
+				form.on('radio(sendTime)', function(data) {
+					console.log(data.value); //被点击的radio的value值
+					sendTimeValue = data.value;
+					if (data.value == 0) {
+						$(".time-wrapper").hide();
+					} else {
+						$(".time-wrapper").show();
+					}
+				});
+			});
+
+			// 点击变量 文本域中添加变量值
+			$("#f_addName").click(function() {
+				let oldValue = $("#variable-textarea").val();
+				let newValue = oldValue + addName;
+				$("#variable-textarea").val(newValue);
+			});
+			$("#f_addSex").click(function() {
+				let oldValue = $("#variable-textarea").val();
+				let newValue = oldValue + addSex;
+				$("#variable-textarea").val(newValue);
+			});
+			$("#f_addLsn").click(function() {
+				let oldValue = $("#variable-textarea").val();
+				let newValue = oldValue + addLsn;
+				$("#variable-textarea").val(newValue);
+			});
+			$("#f_addShopname").click(function() {
+				let oldValue = $("#variable-textarea").val();
+				let newValue = oldValue + addShopname;
+				$("#variable-textarea").val(newValue);
+			});
+
+			// 获取本地上传图片路径
+			//将base64转换为文件
+			function dataURLtoFile(dataurl, filename) {
+				var arr = dataurl.split(','),
+					mime = arr[0].match(/:(.*?);/)[1],
+					bstr = atob(arr[1]),
+					n = bstr.length,
+					u8arr = new Uint8Array(n);
+				while (n--) {
+					u8arr[n] = bstr.charCodeAt(n);
+				}
+				return new File([u8arr], filename, {
+					type: mime
+				});
+			}
+			$('#addImage_input').bind('change', function(e) {
+				let file = e.target.files[0];
+				if (file.size == 0) {
+					alert('照片上传失败，上传的照片无效');
+					$(this).val() == '';
+				} else {
+					console.log('image   ' + $(this).val());
+					//图片方向角 added by lzk
+					let Orientation = null;
+					let inputFileInfo = $(this).val();
+					let that = this;
+					//$("#loadingState").show();
+					//获取照片方向角属性，用户旋转控制
+					EXIF.getData(file, function() {
+						EXIF.getAllTags(this);
+						Orientation = EXIF.getTag(this, 'Orientation');
+						var reader1 = new FileReader();
+						var re = reader1.readAsDataURL(file);
+						var image = new Image();
+						//定义流对象事件
+						reader1.onload = function(e) {
+							image.src = this.result;
+						}
+						// 缩放图片需要的canvas
+						var canvas = document.createElement('canvas');
+						var context = canvas.getContext('2d');
+						// 定义image 事件
+						//base64地址图片加载完毕后
+						var compressoption = {
+							maxWidth: 400,
+							maxHeight: 400,
+							quality: 0.7
+						}
+						image.onload = function() {
+							//// 图片原始尺寸
+							var originWidth = this.width;
+							var originHeight = this.height;
+							// 最大尺寸限制
+							var maxWidth = compressoption.maxWidth || 400,
+								maxHeight = compressoption.maxHeight || 400;
+							// 目标尺寸
+							var targetWidth = originWidth,
+								targetHeight = originHeight;
+							// 图片尺寸超过400x400的限制
+							if (originWidth > maxWidth || originHeight > maxHeight) {
+								if (originWidth / originHeight > maxWidth / maxHeight) {
+									// 更宽，按照宽度限定尺寸
+									targetWidth = maxWidth;
+									targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+								} else {
+									targetHeight = maxHeight;
+									targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+								}
+							}
+							// canvas对图片进行缩放
+							canvas.width = targetWidth;
+							canvas.height = targetHeight;
+							// 清除画布
+							context.clearRect(0, 0, targetWidth, targetHeight);
+							// 图片压缩
+							context.drawImage(image, 0, 0, targetWidth, targetHeight);
+							//修复ios
+							var dataURL = "";
+							if (navigator.userAgent.match(/iphone/i)) {
+								// console.log('iphone');
+								//alert(expectWidth + ',' + expectHeight);
+								//如果方向角不为1，都需要进行旋转 added by lzk
+								if (Orientation != "" && Orientation != 1 && Orientation != undefined) {
+									// alert('旋转处理');
+									switch (Orientation) {
+										case 6: //需要顺时针（向左）90度旋转
+											// alert('需要顺时针（向左）90度旋转');
+											rotateImg(this, 'left', canvas);
+											break;
+										case 8: //需要逆时针（向右）90度旋转
+											// alert('需要顺时针（向右）90度旋转');
+											rotateImg(this, 'right', canvas);
+											break;
+										case 3: //需要180度旋转
+											// alert('需要180度旋转');
+											rotateImg(this, 'right', canvas); //转两次
+											rotateImg(this, 'right', canvas);
+											break;
+									}
+								}
+								dataURL = canvas.toDataURL("image/jpeg", 0.7);
+							} else if (navigator.userAgent.match(/Android/i)) { // 修复android
+								dataURL = canvas.toDataURL(compressoption.mime || "image/jpeg", compressoption.quality || 0.7);
+							} else {
+								//alert(Orientation);
+								if (Orientation != "" && Orientation != 1 && Orientation != undefined) {
+									//alert('旋转处理');
+									switch (Orientation) {
+										case 6: //需要顺时针（向左）90度旋转
+											rotateImg(this, 'left', canvas);
+											break;
+										case 8: //需要逆时针（向右）90度旋转
+											rotateImg(this, 'right', canvas);
+											break;
+										case 3: //需要180度旋转
+											rotateImg(this, 'right', canvas); //转两次
+											rotateImg(this, 'right', canvas);
+											break;
+									}
+								}
+
+								dataURL = canvas.toDataURL("image/jpeg", 0.7);
+							}
+
+							// canvas压缩并上传
+							var fileObject = dataURLtoFile(dataURL, file.name);
+							// console.log(fileObject);
+							var formdata = new FormData();
+							formdata.append('fileType', 'img'); //文件格式
+							formdata.append('fileType_file', fileObject);
+							formdata.append('method', 'upload');
+							console.log('fileType_file', fileObject);
+							$('#addImage_input').val("");
+							// 上传服务器代码
+
+							// $("#loadingState").show();
+							// 							$.ajax({
+							// 								url: "/Handle/Dis.ashx",
+							// 								method: 'POST',
+							// 								processData: false,
+							// 								contentType: false,
+							// 								cache: false,
+							// 								data: formdata
+							// 							}).done((response) => {
+							// 								let data = JSON.parse(response);
+							// 
+							// 								if (data.Result == true) {
+							// 									let path = data.Data[0].Path;
+							// 									var formdata2 = new FormData();
+							// 									formdata2.append('fileType', 'LSN');
+							// 									formdata2.append('fileType_file', path);
+							// 									formdata2.append('method', 'Distinguish');
+							// 									$.ajax({
+							// 										url: "/Handle/Dis.ashx",
+							// 										method: 'POST',
+							// 										processData: false,
+							// 										contentType: false,
+							// 										cache: false,
+							// 										data: formdata2
+							// 									}).done((response) => {
+							// 										$("#loadingState").hide();
+							// 										let data2 = JSON.parse(response);
+							// 										if (data2.Result == true) {
+							// 											let LSN = data2.Data;
+							// 											$("#Key").val(LSN);
+							// 											$("#search-btn-id").trigger("click");
+							// 										} else {
+							// 											alert(data2.Data);
+							// 										}
+							// 
+							// 									}).fail((err) => {
+							// 										console.log(err);
+							// 									})
+							// 								} else {
+							// 									alert('上传图片无效!请重新上传');
+							// 								}
+							// 
+							// 
+							// 							}).fail((err) => {
+							// 								console.log(err);
+							// 							})
+
+						}
+					});
+				}
+			});
+
+			// 新增群发 导入excel
+			$("#import_excel_btn").bind('change', function(e) {
+				let file = e.target.files[0];
+				var formdata = new FormData();
+				formdata.append('fileType', 'excel'); //文件格式
+				formdata.append('fileType_file', file);
+				formdata.append('method', 'upload');
+				console.log('fileType_file', file);
+			});
+
+			// 保存 新增群发
+			$("#submit-add-btn").click(function() {
+				// 新增 标题
+				let addTitle = $("input[name=addTitle]").val();
+				// 群发内容
+				let message = $("#variable-textarea").val();
+				let imgList = []; // 图片数组
+				$("#add-img-wrapper").children('.imgItem').each(function() {
+					imgList.push($(this).children('.upload-img').attr('src'));
+				});
+				console.log(addTitle, addTypeValue, message,imgList, sendTypeValue, sendTimeValue,addCarTypeValue,addCarYearValue, specifyTimeValue);
+			});
+			
+			// 查看群发消息内容
+			$("#group-table .watch").click(function() {
+				let title = $(this).parent().siblings('.title').text(); // 标题
+				let type = $(this).parent().siblings('.type').attr('data-id'); // 类型
+				let content = $(this).parent().siblings('.content').val(); // 内容
+				let importValue = $(this).parent().siblings('.import').val(); // 客户
+				let sendType = $(this).parent().siblings('.sendType').attr('data-id'); // 发送时间
+				let carType = $(this).parent().siblings('.carType').val(); // 车型
+				let carYear = $(this).parent().siblings('.carYear').val(); // 购车年限
+				// 如果是 指定时间发送 则显示 发送时间
+				if (sendType == 2) {
+					$(".time-show-wrapper").show();
+				} else {
+					$(".time-show-wrapper").hide();
+				}
+				
+				// 若是excel导入 则显示导入表,若是指定筛选 则显示筛选条件
+				if (importValue == 2) {
+					$(".add-import-wrapper").show();
+					$(".edit-excel-import-wrapper").hide();
+				} else if (importValue == 0) {
+					$(".edit-excel-import-wrapper").show();
+					$(".add-import-wrapper").hide();
+				} else {
+					$(".add-import-wrapper").hide();
+					$(".edit-excel-import-wrapper").hide();
+				}
+				console.log(title, type, content, importValue, sendType, carType, carYear);
+				$("input[name=watchTitle]").val(title);
+				$("#watchType").find("option[value="+ type +"]").prop("selected", true);
+				$("#watchCarType").find("option[value="+ carType +"]").prop("selected", true);
+				$("#watchCarYear").find("option[value="+ carYear +"]").prop("selected", true);
+				$("#variable-value").val(content);
+				$("input[name=watchImport]").each(function() {
+					if ($(this).val() == importValue) {
+						console.log($(this).val(), importValue);
+						$(this).attr('checked', true);
+					} else {
+						$(this).removeAttr('checked');
+					}
+				});
+				$("input[name=watchSendTime]").each(function() {
+					if ($(this).val() == sendType) {
+						console.log($(this).val(), sendType);
+						$(this).attr('checked', true);
+					} else {
+						$(this).removeAttr('checked');
+					}
+				});
+				layui.use('form', function(){
+					var form = layui.form;
+					form.render();
+				});
+				$('#watchModal').modal('show');
+			});
+			
+			// 下载文件
+			$(".excel-text").attr('href', 'https://api.vaubang.cn/EXPORTTemplate?FileName=101');
+			$(".excel-text").attr('download', 'filename');
+		</script>
+	</body>
+</html>

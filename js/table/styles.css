@@ -1,0 +1,65 @@
+/* Tables */
+table {
+	border-collapse: collapse;
+	margin-bottom: 3rem;
+	width: 100%;
+	background: #fff;
+}
+
+td,
+th {
+	padding: 0.75rem 1.5rem;
+	text-align: left;
+}
+
+th {
+	background-color: #f2f2f2;
+	/* background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.25) 100%); */
+	/* font-family: "Montserrat", Arial, sans-serif; */
+	/* font-weight: bold; */
+	color: #666;
+	text-align: center;
+	white-space: nowrap;
+}
+
+th a {
+	color: #537DC8;
+}
+th a:hover {
+	color: #5e8de1;
+}
+thead a {
+	border: none;
+}
+
+tbody th {
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #EAEAEA;
+}
+
+tbody tr:nth-child(2n-1) {
+	background-color: #fff;
+	transition: all .125s ease-in-out;
+}
+
+/* tbody tr:nth-child(2n-1) th {
+	background-image: linear-gradient(to left, rgba(0,0,0,.125) 0%, rgba(0,0,0,.25) 100%);
+} */
+tbody tr:hover {
+	background-color: #f2f2f2;
+}
+
+tbody img {
+	border-radius: 50%;
+	display: block;
+	width: 4rem;
+	height: 4rem;
+}
+
+/* Media queries, unrelated to functionality of StickySort */
+@media only screen and (max-width: 768px) {
+	#final .sticky-wrap {
+		max-height: 25rem;
+	}
+}

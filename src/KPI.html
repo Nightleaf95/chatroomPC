@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+		<meta http-equiv="expires" content="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>微信管理平台</title>
+		<!-- 重置样式 -->
+		<link rel="stylesheet" href="../css/reset.css">
+		<!-- icon -->
+		<link rel="stylesheet" href="../css/fonts.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../js/layui/css/layui.css">
+		<link rel="stylesheet" href="../css/main.css">
+	</head>
+	<body>
+		<div class="animated slideInRight KPI-model">
+			<div class="screening-wrapper">
+				<form class="layui-form total-kpi-form">
+					<div class="part1-screening">
+						<div class="layui-form-item">
+							<label class="layui-form-label">门店</label>
+							<div class="layui-input-block">
+								<select name="shop" lay-search disabled>
+									<option value="all">全部</option>
+									<option value="g001" selected>蓝天店</option>
+									<option value="g002">炜坤店</option>
+									<option value="g003">兰天城西店</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">客服</label>
+							<div class="layui-input-block">
+								<select name="cusServiceTotal" lay-search>
+									<option value="all">全部</option>
+									<option value="1">张毅伟</option>
+									<option value="2">刘宝坤</option>
+									<option value="3">罗家祥</option>
+								</select>
+							</div>
+						</div>
+
+						<button class="layui-btn danger-bg fake-btn" lay-submit lay-filter="total-search-btn" style="margin-left: 15px;">查询</button>
+						<a class="layui-btn normal-bg fake-btn" href="" id="export">导出</a>
+					</div>
+				</form>
+				<form class="layui-form detail-kpi-form" style="display: none;">
+					<button class="layui-btn danger-bg detail-back-btn">返回</button>
+					<div class="part1-screening">
+						<div class="layui-form-item">
+							<label class="layui-form-label">客服</label>
+							<div class="layui-input-block">
+								<select name="cusServiceDetail" lay-search>
+									<option value="all">全部</option>
+									<option value="0">张毅伟</option>
+									<option value="1">刘宝坤</option>
+									<option value="2">罗家祥</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-form-item standard-wrapper" style="margin-left: 22px;">
+							<label class="layui-form-label">标准</label>
+							<div class="layui-input-block">
+								<select name="standard">
+									<option value="all">全部</option>
+									<option value="5">5分钟</option>
+									<option value="10">10分钟</option>
+									<option value="30">30分钟</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="part2-screening">
+						<div class="layui-form-item">
+							<label class="layui-form-label">跨度</label>
+							<div class="layui-input-block">
+								<input type="radio" lay-filter="dateSpan" name="dateSpan" value="year" title="年">
+								<input type="radio" lay-filter="dateSpan" name="dateSpan" value="month" title="月" checked>
+								<input type="radio" lay-filter="dateSpan" name="dateSpan" value="date" title="日">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">时间</label>
+							<div class="layui-input-block">
+								<div class="time-wrapper year-time" style="display: none;">
+									<input type="text" class="layui-input" id="yearStartDate" placeholder="开始日期">
+									<span class="center-unit">-</span>
+									<input type="text" class="layui-input" id="yearEndDate" placeholder="结束日期">
+								</div>
+								<div class="time-wrapper month-time">
+									<input type="text" class="layui-input" id="monthStartDate" placeholder="开始日期">
+									<span class="center-unit">-</span>
+									<input type="text" class="layui-input" id="monthEndDate" placeholder="结束日期">
+								</div>
+								<div class="time-wrapper day-time" style="display: none;">
+									<input type="text" class="layui-input" id="dayStartDate" placeholder="开始日期">
+									<span class="center-unit">-</span>
+									<input type="text" class="layui-input" id="dayEndDate" placeholder="结束日期">
+								</div>
+							</div>
+						</div>
+						<div class="btn-wrapper">
+							<button class="layui-btn danger-bg" lay-submit lay-filter="detail-search-btn">查询</button>
+							<a class="layui-btn normal-bg">导出</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="table-wrapper total-table">
+				<table class="kefu-table" lay-filter="table-demo">
+					<thead>
+						<tr>
+							<th lay-data="{field: 'kefu', fixed: 'true'}">客服</th>
+							<th lay-data="{field: 'info'}" lay-event="f_info">客户信息完整率<span style="color: blue;">(详情)</span></th>
+							<th lay-data="{field: 'huoyue'}">活跃客户数</th>
+							<th lay-data="{field: 'weixin'}">微信活跃率<a href="#">(详情)</a></th>
+							<th lay-data="{field: 'renci'}">咨询人次</th>
+							<th lay-data="{field: '5min'}">及时响应数(5分钟)</th>
+							<th lay-data="{field: '5minXY'}">5分钟响应率<a href="#">(详情)</a></th>
+							<th lay-data="{field: '10min'}">及时响应数(10分钟)</th>
+							<th lay-data="{field: '10minXY'}">10分钟响应率<a href="#">(详情)</a></th>
+							<th lay-data="{field: '30min'}">及时响应数(30分钟)</th>
+							<th lay-data="{field: '30minXY'}">30分钟响应率<a href="#">(详情)</a></th>
+							<th lay-data="{field: '4hour'}">及时响应数(4小时)</th>
+							<th lay-data="{field: '4hourXY'}">4小时响应率<a href="#">(详情)</a></th>
+							<th lay-data="{field: 'onlineTime'}">在线时长(H)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>广汽三菱蓝天店客服马晓杰</td>
+							<td>98%</td>
+							<td>263</td>
+							<td>89%</td>
+							<td>158</td>
+							<td>200</td>
+							<td>90%</td>
+							<td>283</td>
+							<td>95%</td>
+							<td>301</td>
+							<td>91%</td>
+							<td>388</td>
+							<td>98%</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<td>广汽三菱蓝天店客服李春梅</td>
+							<td>91%</td>
+							<td>180</td>
+							<td>90%</td>
+							<td>190</td>
+							<td>210</td>
+							<td>92%</td>
+							<td>300</td>
+							<td>95%</td>
+							<td>355</td>
+							<td>95%</td>
+							<td>420</td>
+							<td>98%</td>
+							<td>12</td>
+						</tr>
+						<tr>
+							<td>广汽三菱蓝天店客服刘宫</td>
+							<td>98%</td>
+							<td>263</td>
+							<td>89%</td>
+							<td>158</td>
+							<td>200</td>
+							<td>90%</td>
+							<td>283</td>
+							<td>95%</td>
+							<td>301</td>
+							<td>91%</td>
+							<td>388</td>
+							<td>98%</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<td>广汽三菱蓝天店客服马纯</td>
+							<td>98%</td>
+							<td>263</td>
+							<td>89%</td>
+							<td>158</td>
+							<td>200</td>
+							<td>90%</td>
+							<td>283</td>
+							<td>95%</td>
+							<td>301</td>
+							<td>91%</td>
+							<td>388</td>
+							<td>98%</td>
+							<td>10</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="table-wrapper total-table" style="display: none;">
+				<div class="left-table-wrapper-big">
+					<div class="table-item table-item-head">客服</div>
+					<div class="table-item">广汽三菱蓝天店客服马晓杰</div>
+					<div class="table-item">广汽三菱蓝天店客服刘雯</div>
+					<div class="table-item">广汽三菱蓝天店客服李马辉</div>
+				</div>
+				<div class="right-table-wrapper-big">
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>客户信息完整率</span>
+							<span class="detail-btn">（详情）</span>
+						</div>
+						<div class="table-item">34.79%</div>
+						<div class="table-item">32.38%</div>
+						<div class="table-item">54.15%</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>活跃客户数</span>
+						</div>
+						<div class="table-item">263</div>
+						<div class="table-item">628</div>
+						<div class="table-item">291</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>微信活跃率</span>
+							<span class="detail-btn">（详情）</span>
+						</div>
+						<div class="table-item">11.04%</div>
+						<div class="table-item">23.22%</div>
+						<div class="table-item">10.88%</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>咨询人次</span>
+						</div>
+						<div class="table-item">714</div>
+						<div class="table-item">2157</div>
+						<div class="table-item">930</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>及时响应数(5分钟)</span>
+						</div>
+						<div class="table-item">537</div>
+						<div class="table-item">1748</div>
+						<div class="table-item">766</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>5分钟响应率</span>
+							<span class="detail-btn">（详情）</span>
+						</div>
+						<div class="table-item">75.21%</div>
+						<div class="table-item">81.04%</div>
+						<div class="table-item">82.37%</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>及时响应数(10分钟)</span>
+						</div>
+						<div class="table-item">586</div>
+						<div class="table-item">1874</div>
+						<div class="table-item">309</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>10分钟响应率</span>
+							<span class="detail-btn">（详情）</span>
+						</div>
+						<div class="table-item">82.07%</div>
+						<div class="table-item">86.88%</div>
+						<div class="table-item">86.37%</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>及时响应数(30分钟)</span>
+						</div>
+						<div class="table-item">637</div>
+						<div class="table-item">1984</div>
+						<div class="table-item">837</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>30分钟响应率</span>
+							<span class="detail-btn">（详情）</span>
+						</div>
+						<div class="table-item">89.07%</div>
+						<div class="table-item">91.88%</div>
+						<div class="table-item">91.37%</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>及时响应数(4小时)</span>
+						</div>
+						<div class="table-item">673</div>
+						<div class="table-item">2063</div>
+						<div class="table-item">892</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>4小时响应率</span>
+							<span class="detail-btn">（详情）</span>
+						</div>
+						<div class="table-item">94.07%</div>
+						<div class="table-item">95.88%</div>
+						<div class="table-item">95.37%</div>
+					</div>
+					<div class="right-table-wrapper">
+						<div class="table-item table-item-head">
+							<span>在线时长(H)</span>
+						</div>
+						<div class="table-item">453.54</div>
+						<div class="table-item">1021.78</div>
+						<div class="table-item">402.48</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="table-wrapper detail-wrapper" style="display: none;">
+				<table class="layui-table" id="group-table">
+					<thead>
+						<tr>
+							<th class="FixedColumn"></th>
+							<th colspan="3">2019-08</th>
+							<th colspan="3">2019-09</th>
+							<th colspan="3">2019-10</th>
+							<th colspan="3">2019-11</th>
+							<th colspan="3">2019-12</th>
+						</tr>
+						<tr>
+							<th class="FixedColumn"></th>
+							<th>咨询人次</th>
+							<th>响应数</th>
+							<th>10分钟响应率</th>
+							<th>咨询人次</th>
+							<th>响应数</th>
+							<th>10分钟响应率</th>
+							<th>咨询人次</th>
+							<th>响应数</th>
+							<th>10分钟响应率</th>
+							<th>咨询人次</th>
+							<th>响应数</th>
+							<th>10分钟响应率</th>
+							<th>咨询人次</th>
+							<th>响应数</th>
+							<th>10分钟响应率</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="FixedColumn">客服马晓杰</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+						</tr>
+						<tr>
+							<td class="FixedColumn">客服林东</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+						</tr>
+						<tr>
+							<td class="FixedColumn">客服马雪</td>
+							<td>110</td>
+							<td>95</td>
+							<td>86.36%</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+						</tr>
+						<tr>
+							<td class="FixedColumn">客服刘阳</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+						</tr>
+						<tr>
+							<td class="FixedColumn">客服李沁</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>143</td>
+							<td>125</td>
+							<td>87.41%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+							<td>205</td>
+							<td>198</td>
+							<td>96.59%</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="paging"></div>
+		</div>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/layui/layui.js"></script>
+		<script>
+			var yearStartTime, yearEndTime, monthStartTime, monthEndTime, dayStartTime, dayEndTime;
+			// 实例化表单
+			layui.use('form', function() {
+				var form = layui.form;
+				//监听提交
+				form.on('submit(total-search-btn)', function(data) {
+					console.log(data.field);
+					return false;
+				});
+
+				form.on('submit(detail-search-btn)', function(data) {
+					if (data.field.dateSpan == 'year') {
+						startTime = yearStartTime;
+						endTime = yearEndTime;
+					} else if (data.field.dateSpan == 'month') {
+						startTime = monthStartTime;
+						endTime = monthEndTime;
+					} else {
+						startTime = dayStartTime;
+						endTime = dayEndTime;
+					}
+					console.log(data.field, startTime, endTime);
+					return false;
+				});
+
+				// 选择跨度
+				form.on('radio(dateSpan)', function(data) {
+					console.log(data.value); //被点击的radio的value值
+					if (data.value == 'year') {
+						$(".year-time").show();
+						$(".month-time").hide();
+						$(".day-time").hide();
+					} else if (data.value == 'month') {
+						$(".year-time").hide();
+						$(".month-time").show();
+						$(".day-time").hide();
+					} else if (data.value == 'date') {
+						$(".year-time").hide();
+						$(".month-time").hide();
+						$(".day-time").show();
+					}
+				});
+			});
+
+			// 实例化日期时间
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+				//初始化年份时间框
+				laydate.render({
+					elem: '#yearStartDate', //指定元素
+					value: '',
+					type: 'year', //日期格式可选择：年、月、日、时、分、秒
+					done: function(value) {
+						yearStartTime = value;
+					}
+				});
+				laydate.render({
+					elem: '#yearEndDate', //指定元素
+					value: '',
+					type: 'year', //日期格式可选择：年、月、日、时、分、秒
+					done: function(value) {
+						yearEndTime = value;
+					}
+				});
+
+				//初始化月份时间框
+				laydate.render({
+					elem: '#monthStartDate', //指定元素
+					value: '',
+					type: 'month', //日期格式可选择：年、月、日、时、分、秒
+					done: function(value) {
+						monthStartTime = value;
+					}
+				});
+				laydate.render({
+					elem: '#monthEndDate', //指定元素
+					value: '',
+					type: 'month', //日期格式可选择：年、月、日、时、分、秒
+					done: function(value) {
+						monthEndTime = value;
+					}
+				});
+
+				//初始化日期时间框
+				laydate.render({
+					elem: '#dayStartDate', //指定元素
+					value: '',
+					type: 'date', //日期格式可选择：年、月、日、时、分、秒
+					done: function(value) {
+						dayStartTime = value;
+					}
+				});
+				laydate.render({
+					elem: '#dayEndDate', //指定元素
+					value: '',
+					type: 'date', //日期格式可选择：年、月、日、时、分、秒
+					done: function(value) {
+						dayEndTime = value;
+					}
+				});
+			});
+
+			// 实例化分页
+			layui.use('laypage', function() {
+				var laypage = layui.laypage;
+
+				//执行一个laypage实例
+				laypage.render({
+					elem: 'paging',
+					limit: 5,
+					theme: '#E51C23',
+					count: 5, //数据总数，从服务端得到
+					jump: function(obj, first) {
+						//obj包含了当前分页的所有参数，比如：
+						console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+						console.log(obj.limit); //得到每页显示的条数
+					}
+				});
+			});
+			$(".detail-btn").click(function() {
+				$(".standard-wrapper").show();
+				$(".part2-screening").show();
+				$(".total-table").hide();
+				$(".detail-wrapper").show();
+				$(".detail-kpi-form").show();
+				$(".total-kpi-form").hide();
+			});
+			$("#export").attr('href', 'https://api.vaubang.cn/EXPORTTemplate?FileName=101');
+			$("#export").attr('download', 'filename');
+			let tableWidth = $(".table-wrapper").width();
+			layui.use('table', function() {
+				var table = layui.table;
+				//转换静态表格
+				table.init('table-demo', {
+					width: tableWidth,
+					limit: 5,
+					//支持所有基础参数
+					cellMinWidth: 200
+				});
+			});
+			$(document).find("th").each(function() {
+				if ($(this).text().indexOf('(详情)') != -1) {
+					$(this).css({
+						cursor: 'point'
+					})
+				}
+			})
+			$(document).on("click", "th", function() {
+				let _th = $(this).find("span").text();
+				if (_th.indexOf('(详情)') != -1) {
+					let startIndex = _th.indexOf('(详情)');
+					let text = _th.substring(0, startIndex);
+					switch (text) {
+						case "客户信息完整率":
+							$(".total-table").hide();
+							$(".total-kpi-form").hide();
+							$(".detail-wrapper").show();
+							$(".detail-kpi-form").show();
+							break;
+
+						case "微信活跃率":
+							$(".total-table").hide();
+							$(".total-kpi-form").hide();
+							$(".detail-wrapper").show();
+							$(".detail-kpi-form").show();
+							break;
+
+						case "5分钟响应率":
+							$(".total-table").hide();
+							$(".total-kpi-form").hide();
+							$(".detail-wrapper").show();
+							$(".detail-kpi-form").show();
+							break;
+
+						case "10分钟响应率":
+							$(".total-table").hide();
+							$(".total-kpi-form").hide();
+							$(".detail-wrapper").show();
+							$(".detail-kpi-form").show();
+							break;
+
+						case "30分钟响应率":
+							$(".total-table").hide();
+							$(".total-kpi-form").hide();
+							$(".detail-wrapper").show();
+							$(".detail-kpi-form").show();
+							break;
+
+						case "4小时响应率":
+							$(".total-table").hide();
+							$(".total-kpi-form").hide();
+							$(".detail-wrapper").show();
+							$(".detail-kpi-form").show();
+							break;
+					}
+				}
+			});
+
+			$(".detail-wrapper").scroll(function() { //开始监听滚动条
+				//获取当前滚动条高度
+				var scrollLeft = $(".detail-wrapper").scrollLeft();
+				console.log(scrollLeft);
+				if (scrollLeft > 0) {
+					$(".detail-wrapper .FixedColumn").addClass('fixed');
+				} else {
+					$(".detail-wrapper .FixedColumn").removeClass('fixed');
+				}
+			})
+		</script>
+	</body>
+</html>

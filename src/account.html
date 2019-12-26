@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+		<meta http-equiv="expires" content="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>微信群管理平台</title>
+		<!-- 重置样式 -->
+		<link rel="stylesheet" href="../css/reset.css">
+		<!-- icon -->
+		<link rel="stylesheet" href="../css/fonts.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../js/layui/css/layui.css">
+		<link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/main.css">
+	</head>
+	<body>
+		<div class="animated slideInRight account-model">
+			<div class="add-btn-wrapper">
+				<button class="layui-btn danger-bg" data-toggle="modal" data-target="#addUserModal">新增帐号</button>
+			</div>
+			<div class="table-wrapper">
+				<table class="layui-table" id="user-table">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>帐号</th>
+							<th>姓名</th>
+							<th>角色</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td class="account">13575678879</td>
+							<td class="username">马晓杰</td>
+							<td class="role">客服</td>
+							<td class="availableState use">可用</td>
+							<input type="hidden" class="password-value" value="123456">
+							<td>
+								<span class="edit">修改</span>
+								<span class="delete">删除</span>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td class="account">18977867654</td>
+							<td class="username">李白白</td>
+							<td class="role">客服</td>
+							<td class="availableState">不可用</td>
+							<input type="hidden" class="password-value" value="123456">
+							<td>
+								<span class="edit">修改</span>
+								<span class="delete">删除</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="paging"></div>
+		</div>
+		<!-- 新增用户Modal -->
+		<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="layui-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="addUserModalLabel">新增</h4>
+						</div>
+						<div class="modal-body">
+							<p class="tips">* 帐号为登陆者手机号码，即微信绑定手机号码</p>
+							<div class="layui-form-item">
+								<label class="layui-form-label">帐号</label>
+								<div class="layui-input-block">
+									<input type="text" name="userAccount" required lay-verify="required" placeholder="请输入帐号" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">密码</label>
+								<div class="layui-input-block">
+									<input type="password" name="userPassword" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">姓名</label>
+								<div class="layui-input-block">
+									<input type="text" name="userName" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">角色</label>
+								<div class="layui-input-block">
+									<select name="Role" lay-verify="required">
+										<option value="1">客服</option>
+										<option value="2">服务顾问</option>
+										<option value="3">客服经理</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">状态</label>
+								<div class="layui-input-block">
+									<input type="radio" name="availableState" value="1" title="可用" checked>
+									<input type="radio" name="availableState" value="2" title="不可用">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn danger-bg" lay-submit lay-filter="addAccountSure">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- 修改用户Modal -->
+		<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="layui-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="editUserModalLabel">修改</h4>
+						</div>
+						<div class="modal-body">
+							<div class="layui-form-item">
+								<label class="layui-form-label">帐号</label>
+								<div class="layui-input-block">
+									<input id="editAccountInput" type="text" name="editAccount" required lay-verify="required" placeholder="请输入帐号"
+									 autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">密码</label>
+								<div class="layui-input-block">
+									<input type="text" name="editUserPassword" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">姓名</label>
+								<div class="layui-input-block">
+									<input id="editUsernameInput" type="text" name="editUsername" required lay-verify="required" placeholder="请输入姓名"
+									 autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">角色</label>
+								<div class="layui-input-block">
+									<select id="editRole" name="editRole" lay-verify="required">
+										<option value="客服">客服</option>
+										<option value="服务顾问">服务顾问</option>
+										<option value="客服经理">客服经理</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">状态</label>
+								<div class="layui-input-block">
+									<input type="radio" lay-filter="editAvailableState" name="editAvailableState" value="use" title="可用">
+									<input type="radio" lay-filter="editAvailableState" name="editAvailableState" value="unuse" title="不可用">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn danger-bg" lay-submit lay-filter="editAccountSure">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+		<script>
+			// 实例化表单
+			layui.use('form', function() {
+				var form = layui.form;
+				//新增帐号 提交
+				form.on('submit(addAccountSure)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+
+				//修改帐号 提交
+				$(".edit").click(function() {
+					let account = $(this).parent().siblings(".account").text();
+					let username = $(this).parent().siblings(".username").text();
+					let role = $(this).parent().siblings(".role").text();
+					let availableState = $(this).parent().siblings(".availableState").text();
+					let editUserPassword = $(this).parent().siblings(".password-value").val();
+					$("input[name=editAccount]").val(account);
+					$("input[name=editUsername]").val(username);
+					$("input[name=editUserPassword]").val(editUserPassword);
+					$("#editRole").find("option[value=" + role + "]").prop("selected", true);
+					$("input[name=editAvailableState]").each(function() {
+						if ($(this).attr('title') == availableState) {
+							$(this).attr('checked', true);
+							return false;
+						}
+					});
+					form.render('radio');
+				});
+				form.on('submit(editAccountSure)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+			});
+
+			// 实例化分页
+			layui.use('laypage', function() {
+				var laypage = layui.laypage;
+
+				//执行一个laypage实例
+				laypage.render({
+					elem: 'paging',
+					limit: 5,
+					theme: '#E51C23',
+					count: 5, //数据总数，从服务端得到
+					jump: function(obj, first) {
+						//obj包含了当前分页的所有参数，比如：
+						console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+						console.log(obj.limit); //得到每页显示的条数
+
+						//首次不执行
+						if (!first) {
+							//do something
+						}
+					}
+				});
+			});
+
+			// 修改用户信息
+			$(".edit").click(function() {
+				let account = $(this).parent().siblings(".account").text();
+				let username = $(this).parent().siblings(".username").text();
+				let role = $(this).parent().siblings(".role").text();
+				let availableState = $(this).parent().siblings(".availableState").text();
+				$("#editAccountInput").val(account);
+				$("#editUsernameInput").val(username);
+				$("#editUserModal").modal('show');
+			});
+
+			// 删除用户
+			$("#user-table .delete").click(function() {
+				// console.log($(this).parent().siblings(".serial").text());
+				layer.confirm('确认取消该条群发消息吗？', {
+					btn: ['关闭', '确认'], //按钮
+					closeBtn: 0
+				}, function(index) {
+					layer.close(index);
+				}, function() {
+					layer.msg('删除成功！');
+				});
+			});
+		</script>
+	</body>
+</html>

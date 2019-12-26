@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+		<meta http-equiv="expires" content="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>微信群管理平台</title>
+		<!-- 重置样式 -->
+		<link rel="stylesheet" href="../css/reset.css">
+		<!-- icon -->
+		<link rel="stylesheet" href="../css/fonts.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../js/layui/css/layui.css">
+		<link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/main.css">
+	</head>
+	<body>
+		<div id="fullPage">
+			<canvas id="canvas"></canvas>
+		</div>
+		<div class="animated slideInRight groupmes-manager-model">
+			<div class="screening-wrapper">
+				<form class="layui-form">
+					<div class="layui-form-item">
+						<label class="layui-form-label">标题</label>
+						<div class="layui-input-block title-input">
+							<input id="screen-title" type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">类型</label>
+						<div class="layui-input-block">
+							<select lay-filter="screen-type" name="type">
+								<option value="全部">全部</option>
+								<option value="定保招徕">定保招徕</option>
+								<option value="续保招徕">续保招徕</option>
+								<option value="营销活动">营销活动</option>
+								<option value="日常关怀">日常关怀</option>
+								<option value="其它">其它</option>
+							</select>
+						</div>
+					</div>
+					<button class="layui-btn" lay-submit lay-filter="formDemo">查询</button>
+				</form>
+			</div>
+			<div class="operation-btn-wrapper">
+				<button type="button" class="layui-btn danger-bg" id="add-btn" data-toggle="modal" data-target="#addModal">新增</button>
+				<button type="button" class="layui-btn normal-bg" id="export">全部导出</button>
+			</div>
+			<div class="table-wrapper">
+				<table class="layui-table" id="groupMes-table" style="table-layout:fixed">
+					<thead>
+						<tr>
+							<th width="60">序号</th>
+							<th width="100">标题</th>
+							<th width="100">类型</th>
+							<th width="350">内容</th>
+							<th width="190">图片</th>
+							<th width="100">客户车型</th>
+							<th width="100">购车年限</th>
+							<th width="100">筛选条件</th>
+							<th width="100">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="serial" data-id="id1">1</td>
+							<td class="title">定保招徕</td>
+							<td class="type">全部</td>
+							<td class="content">尊敬的${username}您好！我是${shopname}店的${role}${name}尊敬的${username}您好！我是${shopname}店的${role}${name}</td>
+							<td class="images">
+								<img class="upload-img" src="../img/avatar.png">
+								<img class="upload-img" src="../img/avatar.png">
+								<img class="upload-img" src="../img/avatar.png">
+							</td>
+							<td class="carType">奕歌</td>
+							<td class="carYear">1年以内</td>
+							<td class="import" data-id="0">Excel导入</td>
+							<td>
+								<span class="edit">修改</span>
+								<span class="delete" data-id="id0">删除</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="serial" data-id="id2">2</td>
+							<td class="title">营销活动</td>
+							<td class="type">营销活动</td>
+							<td class="content">尊敬的${username}您好！我是${shopname}店的${role}${name}</td>
+							<td class="images">
+								<img class="upload-img" src="../img/avatar.png">
+							</td>
+							<td class="carType">帕杰罗</td>
+							<td class="carYear">2-3年</td>
+							<td class="import" data-id="1">全部群发</td>
+							<td>
+								<span class="edit">修改</span>
+								<span class="delete" data-id="id1">删除</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="serial" data-id="id3">3</td>
+							<td class="title">其它</td>
+							<td class="type">其它</td>
+							<td class="content">尊敬的${username}您好！我是${shopname}店的${role}${name}</td>
+							<td class="images">
+								<img class="upload-img" src="../img/avatar.png">
+							</td>
+							<td class="carType">祺智</td>
+							<td class="carYear">3-4年</td>
+							<td class="import" data-id="2">指定筛选</td>
+							<td>
+								<span class="edit">修改</span>
+								<span class="delete" data-id="id1">删除</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="messageListPaging"></div>
+			</div>
+		</div>
+
+		<!-- 新增模板Modal -->
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="layui-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">新增</h4>
+						</div>
+						<div class="modal-body">
+							<div class="layui-form-item">
+								<label class="layui-form-label">标题</label>
+								<div class="layui-input-block">
+									<input type="text" name="addTitle" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">类型</label>
+								<div class="layui-input-block">
+									<select name="addType" lay-verify="required" lay-filter="addType">
+										<option value="全部">全部</option>
+										<option value="定保招徕">定保招徕</option>
+										<option value="续保招徕">续保招徕</option>
+										<option value="营销活动">营销活动</option>
+										<option value="日常关怀">日常关怀</option>
+										<option value="其它">其它</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">内容</label>
+								<div class="layui-input-block">
+									<div class="variable-wrapper">
+										<span class="variable-text">插入变量：</span>
+										<div class="variable-itemlist">
+											<div class="item" id="f_addName">姓名</div>
+											<div class="item" id="f_addSex">性别</div>
+											<div class="item" id="f_addLsn">车牌号</div>
+											<div class="item" id="f_addShopname">店名</div>
+										</div>
+									</div>
+									<textarea name="variableTextarea" id="variable-textarea" rows="10" placeholder="请输入内容..."></textarea>
+								</div>
+							</div>
+							<div class="layui-form-item upload-img-item">
+								<label class="layui-form-label">图片</label>
+								<div class="layui-input-block">
+									<div class="upload-btn">本地上传<input id="addImage_input" type="file"></div>
+									<p class="tips">图片格式为png,jpg，图片大小不得超过3MB</p>
+									<div class="upload-img-wrapper" id="add-img-wrapper">
+										<div class="imgItem">
+											<img class="upload-img" src="../img/avatar.png">
+											<i class="iconfont icon-cancelwhite delete-image-btn"></i>
+										</div>
+										<div class="imgItem">
+											<img class="upload-img" src="../img/avatar.png">
+											<i class="iconfont icon-cancelwhite delete-image-btn"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">客户</label>
+								<div class="layui-input-block">
+									<div class="radio-wrapper">
+										<input type="radio" lay-filter="import" name="import" value="0" title="Excel导入">
+										<input type="radio" lay-filter="import" name="import" value="1" title="全部群发" checked>
+										<input type="radio" lay-filter="import" name="import" value="2" title="指定筛选">
+									</div>
+									<div class="excel-wrapper" style="display: none;">
+										<div class="layui-form-item">
+											<label class="layui-form-label">客户车型</label>
+											<div class="layui-input-block">
+												<select name="addCarType" lay-verify="required" lay-filter="addCarType">
+													<option value="全部">全部</option>
+													<option value="奕歌">奕歌</option>
+													<option value="帕杰罗">帕杰罗</option>
+													<option value="欧蓝德">欧蓝德</option>
+													<option value="祺智">祺智</option>
+													<option value="劲炫">劲炫</option>
+												</select>
+											</div>
+										</div>
+										<div class="layui-form-item">
+											<label class="layui-form-label">购车年限</label>
+											<div class="layui-input-block">
+												<select name="addCarYear" lay-verify="required" lay-filter="addCarYear">
+													<option value="全部">全部</option>
+													<option value="1年以内">1年以内</option>
+													<option value="1-2年">1-2年</option>
+													<option value="2-3年">2-3年</option>
+													<option value="3-4年">3-4年</option>
+													<option value="4年以上">4年以上</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn danger-bg" lay-submit lay-filter="submit-add-btn" id="submit-add-btn">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- 修改模板Modal -->
+		<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="layui-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="editModalLabel">修改</h4>
+						</div>
+						<div class="modal-body">
+							<div class="layui-form-item">
+								<label class="layui-form-label">标题</label>
+								<div class="layui-input-block">
+									<input type="text" name="editTitle" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+									 class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">类型</label>
+								<div class="layui-input-block">
+									<select id="editType" name="editType" lay-verify="required" lay-filter="editType">
+										<option value="全部">全部</option>
+										<option value="定保招徕">定保招徕</option>
+										<option value="续保招徕">续保招徕</option>
+										<option value="营销活动">营销活动</option>
+										<option value="日常关怀">日常关怀</option>
+										<option value="其它">其它</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">内容</label>
+								<div class="layui-input-block">
+									<div class="variable-wrapper">
+										<span class="variable-text">插入变量：</span>
+										<div class="variable-itemlist">
+											<div class="item" id="f_editName">姓名</div>
+											<div class="item" id="f_editSex">性别</div>
+											<div class="item" id="f_editLsn">车牌号</div>
+											<div class="item" id="f_editShopname">店名</div>
+										</div>
+									</div>
+									<textarea name="editVariableTextarea" id="editVariable-textarea" rows="10" placeholder="请输入内容..."></textarea>
+								</div>
+							</div>
+							<div class="layui-form-item upload-img-item">
+								<label class="layui-form-label">图片</label>
+								<div class="layui-input-block">
+									<div class="upload-btn">本地上传<input id="editImage_input" type="file"></div>
+									<p class="tips">图片格式为png,jpg，图片大小不得超过3MB</p>
+									<div class="upload-img-wrapper" id="edit-img-wrapper"></div>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">客户</label>
+								<div class="layui-input-block">
+									<div class="radio-wrapper">
+										<input type="radio" lay-filter="editImport" name="editImport" value="0" title="Excel导入">
+										<input type="radio" lay-filter="editImport" name="editImport" value="1" title="全部群发">
+										<input type="radio" lay-filter="editImport" name="editImport" value="2" title="指定筛选">
+									</div>
+									<div class="excel-wrapper edit-import-wrapper" style="display: none;">
+										<div class="layui-form-item">
+											<label class="layui-form-label">客户车型</label>
+											<div class="layui-input-block">
+												<select name="editCarType" lay-verify="required" lay-filter="editCarType">
+													<option value="全部">全部</option>
+													<option value="奕歌">奕歌</option>
+													<option value="帕杰罗">帕杰罗</option>
+													<option value="欧蓝德">欧蓝德</option>
+													<option value="祺智">祺智</option>
+													<option value="劲炫">劲炫</option>
+												</select>
+											</div>
+										</div>
+										<div class="layui-form-item">
+											<label class="layui-form-label">购车年限</label>
+											<div class="layui-input-block">
+												<select name="editCarYear" lay-verify="required" lay-filter="editCarYear">
+													<option value="全部">全部</option>
+													<option value="1年以内">1年以内</option>
+													<option value="1-2年">1-2年</option>
+													<option value="2-3年">2-3年</option>
+													<option value="3-4年">3-4年</option>
+													<option value="4年以上">4年以上</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn danger-bg" lay-submit lay-filter="submit-edit-btn" id="submit-edit-btn">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/layui/layui.js"></script>
+		<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../js/exif.js"></script>
+		<script src="../js/previewImage.js"></script>
+		<script>
+			// 实例化表单
+			layui.use('form', function() {
+				var form = layui.form;
+				//监听提交
+				form.on('submit(formDemo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+			});
+
+			// 预览图片
+			var wxScale = new WxScale({
+				fullPage: document.querySelector("#fullPage"),
+				canvas: document.querySelector("#canvas")
+			});
+			$(".upload-img").each(function() {
+				$(this).click(function() {
+					wxScale.start(this); //这里的this指向需要放大的这张图片
+				});
+			});
+
+			// 实例化日期时间
+			var specifyTimeValue = "";
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+
+				//执行一个laydate实例
+				laydate.render({
+					elem: '#specifyTime', //指定元素
+					type: 'datetime', //日期格式可选择：年、月、日、时、分、秒
+					done: function(value) {
+						console.log(value);
+						specifyTimeValue = value;
+					}
+				});
+			});
+
+			// 实例化分页
+			layui.use('laypage', function() {
+				var laypage = layui.laypage;
+
+				//执行一个laypage实例
+				laypage.render({
+					elem: 'messageListPaging',
+					limit: 5,
+					theme: '#E51C23',
+					count: 5, //数据总数，从服务端得到
+					jump: function(obj, first) {
+						//obj包含了当前分页的所有参数，比如：
+						console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+						console.log(obj.limit); //得到每页显示的条数
+					}
+				});
+			});
+
+			// 新增群发消息
+			//新增类型默认为全部
+			var addTypeValue = "all";
+			var sendTypeValue = "0";
+			var sendTimeValue = "0";
+			var addCarTypeValue = "all";
+			var addCarYearValue = "all";
+			var addName, editName = "${username}";
+			var addSex, editSex = "$(usersex)";
+			var addLsn, editLsn = "$(userlsn)";
+			var addShopname, editShopname = "$(shopname)";
+			
+			var editCarTypeValue = ""; // 修改车型默认值
+			var editCarYearValue = ""; // 修改购车期限默认值
+			layui.use('form', function() {
+				var form = layui.form;
+				// 监听类型选择框
+				form.on('select(addType)', function(data) {
+					addTypeValue = data.value;
+				});
+
+				// 监听车型选择框
+				form.on('select(addCarType)', function(data) {
+					addCarTypeValue = data.value;
+				});
+
+				// 监听购车年限选择框
+				form.on('select(addCarYear)', function(data) {
+					addCarYearValue = data.value;
+				});
+				
+				// 修改车型选择框
+				form.on('select(editCarType)', function(data) {
+					editCarTypeValue = data.value;
+				});
+				
+				// 修改购车年限选择框
+				form.on('select(editCarYear)', function(data) {
+					editCarYearValue = data.value;
+				});
+
+				// 监听 新增群发方式
+				form.on('radio(import)', function(data) {
+					console.log(data.value); //被点击的radio的value值
+					sendTypeValue = data.value;
+					if (data.value == 2) {
+						$(".excel-wrapper").show();
+					} else {
+						$(".excel-wrapper").hide();
+					}
+				});
+				
+				// 修改群发方式
+				form.on('radio(editImport)', function(data) {
+					if (data.value == 2) {
+						$(".edit-import-wrapper").show();
+					} else {
+						$(".edit-import-wrapper").hide();
+					}
+				});
+
+				// 监听 发送时间
+				form.on('radio(sendTime)', function(data) {
+					console.log(data.value); //被点击的radio的value值
+					sendTimeValue = data.value;
+					if (data.value == 0) {
+						$(".time-wrapper").hide();
+					} else {
+						$(".time-wrapper").show();
+					}
+				});
+			});
+
+			// 点击变量 文本域中添加变量值
+			$("#f_addName").click(function() {
+				let oldValue = $("#variable-textarea").val();
+				let newValue = oldValue + addName;
+				$("#variable-textarea").val(newValue);
+			});
+			$("#f_addSex").click(function() {
+				let oldValue = $("#variable-textarea").val();
+				let newValue = oldValue + addSex;
+				$("#variable-textarea").val(newValue);
+			});
+			$("#f_addLsn").click(function() {
+				let oldValue = $("#variable-textarea").val();
+				let newValue = oldValue + addLsn;
+				$("#variable-textarea").val(newValue);
+			});
+			$("#f_addShopname").click(function() {
+				let oldValue = $("#variable-textarea").val();
+				let newValue = oldValue + addShopname;
+				$("#variable-textarea").val(newValue);
+			});
+
+			// 修改模板的内容 变量赋值
+			$("#f_editName").click(function() {
+				let oldValue = $("#editVariable-textarea").val();
+				let newValue = oldValue + editName;
+				$("#editVariable-textarea").val(newValue);
+			});
+			$("#f_editSex").click(function() {
+				let oldValue = $("#editVariable-textarea").val();
+				let newValue = oldValue + editSex;
+				$("#editVariable-textarea").val(newValue);
+			});
+			$("#f_editLsn").click(function() {
+				let oldValue = $("#editVariable-textarea").val();
+				let newValue = oldValue + editLsn;
+				$("#editVariable-textarea").val(newValue);
+			});
+			$("#f_editShopname").click(function() {
+				let oldValue = $("#editVariable-textarea").val();
+				let newValue = oldValue + editShopname;
+				$("#editVariable-textarea").val(newValue);
+			});
+
+			// 获取本地上传图片路径
+			//将base64转换为文件
+			function dataURLtoFile(dataurl, filename) {
+				var arr = dataurl.split(','),
+					mime = arr[0].match(/:(.*?);/)[1],
+					bstr = atob(arr[1]),
+					n = bstr.length,
+					u8arr = new Uint8Array(n);
+				while (n--) {
+					u8arr[n] = bstr.charCodeAt(n);
+				}
+				return new File([u8arr], filename, {
+					type: mime
+				});
+			}
+			$('#addImage_input').bind('change', function(e) {
+				let file = e.target.files[0];
+				if (file.size == 0) {
+					alert('照片上传失败，上传的照片无效');
+					$(this).val() == '';
+				} else {
+					console.log('image   ' + $(this).val());
+					//图片方向角 added by lzk
+					let Orientation = null;
+					let inputFileInfo = $(this).val();
+					let that = this;
+					//$("#loadingState").show();
+					//获取照片方向角属性，用户旋转控制
+					EXIF.getData(file, function() {
+						EXIF.getAllTags(this);
+						Orientation = EXIF.getTag(this, 'Orientation');
+						var reader1 = new FileReader();
+						var re = reader1.readAsDataURL(file);
+						var image = new Image();
+						//定义流对象事件
+						reader1.onload = function(e) {
+							image.src = this.result;
+						}
+						// 缩放图片需要的canvas
+						var canvas = document.createElement('canvas');
+						var context = canvas.getContext('2d');
+						// 定义image 事件
+						//base64地址图片加载完毕后
+						var compressoption = {
+							maxWidth: 400,
+							maxHeight: 400,
+							quality: 0.7
+						}
+						image.onload = function() {
+							//// 图片原始尺寸
+							var originWidth = this.width;
+							var originHeight = this.height;
+							// 最大尺寸限制
+							var maxWidth = compressoption.maxWidth || 400,
+								maxHeight = compressoption.maxHeight || 400;
+							// 目标尺寸
+							var targetWidth = originWidth,
+								targetHeight = originHeight;
+							// 图片尺寸超过400x400的限制
+							if (originWidth > maxWidth || originHeight > maxHeight) {
+								if (originWidth / originHeight > maxWidth / maxHeight) {
+									// 更宽，按照宽度限定尺寸
+									targetWidth = maxWidth;
+									targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+								} else {
+									targetHeight = maxHeight;
+									targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+								}
+							}
+							// canvas对图片进行缩放
+							canvas.width = targetWidth;
+							canvas.height = targetHeight;
+							// 清除画布
+							context.clearRect(0, 0, targetWidth, targetHeight);
+							// 图片压缩
+							context.drawImage(image, 0, 0, targetWidth, targetHeight);
+							//修复ios
+							var dataURL = "";
+							if (navigator.userAgent.match(/iphone/i)) {
+								// console.log('iphone');
+								//alert(expectWidth + ',' + expectHeight);
+								//如果方向角不为1，都需要进行旋转 added by lzk
+								if (Orientation != "" && Orientation != 1 && Orientation != undefined) {
+									// alert('旋转处理');
+									switch (Orientation) {
+										case 6: //需要顺时针（向左）90度旋转
+											// alert('需要顺时针（向左）90度旋转');
+											rotateImg(this, 'left', canvas);
+											break;
+										case 8: //需要逆时针（向右）90度旋转
+											// alert('需要顺时针（向右）90度旋转');
+											rotateImg(this, 'right', canvas);
+											break;
+										case 3: //需要180度旋转
+											// alert('需要180度旋转');
+											rotateImg(this, 'right', canvas); //转两次
+											rotateImg(this, 'right', canvas);
+											break;
+									}
+								}
+								dataURL = canvas.toDataURL("image/jpeg", 0.7);
+							} else if (navigator.userAgent.match(/Android/i)) { // 修复android
+								dataURL = canvas.toDataURL(compressoption.mime || "image/jpeg", compressoption.quality || 0.7);
+							} else {
+								//alert(Orientation);
+								if (Orientation != "" && Orientation != 1 && Orientation != undefined) {
+									//alert('旋转处理');
+									switch (Orientation) {
+										case 6: //需要顺时针（向左）90度旋转
+											rotateImg(this, 'left', canvas);
+											break;
+										case 8: //需要逆时针（向右）90度旋转
+											rotateImg(this, 'right', canvas);
+											break;
+										case 3: //需要180度旋转
+											rotateImg(this, 'right', canvas); //转两次
+											rotateImg(this, 'right', canvas);
+											break;
+									}
+								}
+
+								dataURL = canvas.toDataURL("image/jpeg", 0.7);
+							}
+
+							// canvas压缩并上传
+							var fileObject = dataURLtoFile(dataURL, file.name);
+							// console.log(fileObject);
+							var formdata = new FormData();
+							formdata.append('fileType', 'img'); //文件格式
+							formdata.append('fileType_file', fileObject);
+							formdata.append('method', 'upload');
+							console.log('fileType_file', fileObject);
+							$('#addImage_input').val("");
+							// 上传服务器代码
+
+							// $("#loadingState").show();
+							// 							$.ajax({
+							// 								url: "/Handle/Dis.ashx",
+							// 								method: 'POST',
+							// 								processData: false,
+							// 								contentType: false,
+							// 								cache: false,
+							// 								data: formdata
+							// 							}).done((response) => {
+							// 								let data = JSON.parse(response);
+							// 
+							// 								if (data.Result == true) {
+							// 									let path = data.Data[0].Path;
+							// 									var formdata2 = new FormData();
+							// 									formdata2.append('fileType', 'LSN');
+							// 									formdata2.append('fileType_file', path);
+							// 									formdata2.append('method', 'Distinguish');
+							// 									$.ajax({
+							// 										url: "/Handle/Dis.ashx",
+							// 										method: 'POST',
+							// 										processData: false,
+							// 										contentType: false,
+							// 										cache: false,
+							// 										data: formdata2
+							// 									}).done((response) => {
+							// 										$("#loadingState").hide();
+							// 										let data2 = JSON.parse(response);
+							// 										if (data2.Result == true) {
+							// 											let LSN = data2.Data;
+							// 											$("#Key").val(LSN);
+							// 											$("#search-btn-id").trigger("click");
+							// 										} else {
+							// 											alert(data2.Data);
+							// 										}
+							// 
+							// 									}).fail((err) => {
+							// 										console.log(err);
+							// 									})
+							// 								} else {
+							// 									alert('上传图片无效!请重新上传');
+							// 								}
+							// 
+							// 
+							// 							}).fail((err) => {
+							// 								console.log(err);
+							// 							})
+
+						}
+					});
+				}
+			});
+			var selectTypeValue = "全部";
+			layui.use('form', function() {
+				var form = layui.form;
+				// 保存 新增群发
+				form.on('submit(submit-add-btn)', function(data) {
+					let title = data.field.addTitle; // 标题
+					let type = data.field.addType; // 类型
+					let content = data.field.variableTextarea; // 内容
+					let carType = data.field.addCarType; // 车型
+					let carYear = data.field.addCarYear; // 购车年限
+					console.log(data.field);
+				});
+				// 保存 修改群发
+				form.on('submit(submit-edit-btn)', function(data) {
+					let title = data.field.addTitle; // 标题
+					let type = data.field.addType; // 类型
+					let content = data.field.variableTextarea; // 内容
+					let carType = data.field.addCarType; // 车型
+					let carYear = data.field.addCarYear; // 购车年限
+					let imgList = []; // 图片数组
+					$("#edit-img-wrapper").children('.imgItem').each(function() {
+						imgList.push($(this).children('.upload-img').attr('src'));
+					})
+					console.log(data.field, imgList);
+				});
+				
+				// 类型选择
+				form.on('select(screen-type)', function(data) {
+					selectTypeValue = data.value;
+				});
+			});
+
+			// 全部导出
+			
+			$("#export").click(function() {
+				let title = $("#screen-title").val(); // 标题
+				let type = selectTypeValue; // 类型
+				console.log(title, type);
+			});
+			
+			// 新增模板 删除图片
+			$("#add-img-wrapper").on('click', '.delete-image-btn',  function(){
+				$(this).parent().remove();
+			});
+			
+			// 修改模板 删除图片
+			$("#edit-img-wrapper").on('click', '.delete-image-btn',  function() {
+				$(this).parent().remove();
+			});
+
+			// 打开修改模板
+			$(".edit").click(function() {
+				let templateId = $(this).parent().siblings('.serial').attr('data-id'); // 模板ID
+				console.log(templateId);
+				let title = $(this).parent().siblings('.title').text(); // 标题
+				let type = $(this).parent().siblings('.type').text(); // 类型
+				let content = $(this).parent().siblings('.content').text(); // 内容
+				let imgs = $(this).parent().siblings('.images').children('img'); // 图片
+				let imgHtml = "";
+				$(imgs).each(function() {
+					let imgSrc = $(this).attr('src');
+					imgHtml += '<div class="imgItem">';
+					imgHtml += '<img class="upload-img" src=' + imgSrc + '>';
+					imgHtml += '<i class="iconfont icon-cancelwhite delete-image-btn"></i></div>';
+				});
+				$("#edit-img-wrapper").html(imgHtml);
+				$(".upload-img").each(function() {
+					$(this).click(function() {
+						wxScale.start(this); //这里的this指向需要放大的这张图片
+					});
+				});
+				let screen = $(this).parent().siblings('.import').attr('data-id'); // 筛选条件
+				// 如果筛选条件为 指定筛选 则默认显示车型,购车年限筛选框
+				if (screen == 2) {
+					$(".edit-import-wrapper").show();
+				} else {
+					$(".edit-import-wrapper").hide();
+				};
+				$("input[name=editImport]").each(function() {
+					if ($(this).val() == screen) {
+						console.log($(this).val(), screen);
+						$(this).attr('checked', true);
+					} else {
+						$(this).removeAttr('checked');
+					}
+				});
+				let carType = $(this).parent().siblings('.carType').text(); // 车型
+				let carYear = $(this).parent().siblings('.carYear').text(); // 购车年限
+				
+				$("input[name=editTitle]").val(title);
+				$("#editType").find("option[value=" + type + "]").prop("selected", true);
+				$("#editVariable-textarea").val(content);
+				$("#editCarType").find("option[value=" + carType + "]").prop("selected", true);
+				$("#editCarYear").find("option[value=" + carYear + "]").prop("selected", true);
+				layui.use('form', function() {
+					var form = layui.form;
+					console.log(title, type, content, imgHtml, carType, carYear, screen);
+					form.render();
+				});
+				$("#editModal").modal('show');
+			});
+
+			// 删除模板
+			$(".delete").click(function() {
+				let id = $(this).attr('data-id');
+				console.log(id);
+				layer.confirm('确认删除此项模板吗？', {
+					btn: ['关闭', '确认'] //按钮
+				}, function(index) {
+					layer.close(index);
+				}, function() {
+					layer.msg('删除成功');
+				});
+			});
+		</script>
+	</body>
+</html>
